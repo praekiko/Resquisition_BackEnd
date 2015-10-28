@@ -4,6 +4,7 @@ class Item {
 	int id
 	String title
 	String barcode
+    String description
 	int remaining
 
 	static hasMany = [transactionItemShips: TransactionItemShips]
@@ -13,6 +14,7 @@ class Item {
     	title blank: false
     	barcode blank: false
     	remaining nullable: false
+        description blank: true, maxSize: 5000
     }
 
     public String toString() { 

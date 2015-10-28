@@ -5,7 +5,7 @@ class User {
 	String name
 	String telNum
 	String barcode
-	UserType type
+	UserRole type
 
     static constraints = {
     	id nullable: false

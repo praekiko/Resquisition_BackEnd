@@ -8,6 +8,10 @@
 //= require jquery
 //= require_tree .
 //= require_self
+//= require jquery-ui
+//= require bootstrap
+//= require moment.min
+//= require bootstrap-datetimepicker.min
 
 if (typeof jQuery !== 'undefined') {
 	(function($) {

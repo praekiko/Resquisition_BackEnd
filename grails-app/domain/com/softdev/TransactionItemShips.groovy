@@ -12,7 +12,7 @@ class TransactionItemShips {
     }
 
     public String toString() { 
-    	"$item $amount" 
+    	"$item : amount = $amount" 
     }
 
 }

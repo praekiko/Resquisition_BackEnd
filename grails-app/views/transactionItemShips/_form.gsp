@@ -2,30 +2,30 @@
 
 
 
-<div class="fieldcontain ${hasErrors(bean: transactionItemShipsInstance, field: 'transaction', 'error')} required">
-	<label for="transaction">
+<div class="fieldcontain form-inline ${hasErrors(bean: transactionItemShipsInstance, field: 'transaction', 'error')} required">
+	<label for="transaction" class="col-sm-2 control-label">
 		<g:message code="transactionItemShips.transaction.label" default="Transaction" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="transaction" name="transaction.id" from="${com.softdev.Transaction.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.transaction?.id}" class="many-to-one"/>
+	<g:select id="transaction" name="transaction.id" from="${com.softdev.Transaction.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.transaction?.id}" class="many-to-one form-control"/>
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: transactionItemShipsInstance, field: 'item', 'error')} required">
-	<label for="item">
+<div class="fieldcontain form-inline ${hasErrors(bean: transactionItemShipsInstance, field: 'item', 'error')} required">
+	<label for="item" class="col-sm-2 control-label">
 		<g:message code="transactionItemShips.item.label" default="Item" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one"/>
+	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control"/>
 
 </div>
 
-<div class="fieldcontain ${hasErrors(bean: transactionItemShipsInstance, field: 'amount', 'error')} required">
-	<label for="amount">
+<div class="fieldcontain form-inline ${hasErrors(bean: transactionItemShipsInstance, field: 'amount', 'error')} required">
+	<label for="amount" class="col-sm-2 control-label">
 		<g:message code="transactionItemShips.amount.label" default="Amount" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:field name="amount" type="number" value="${transactionItemShipsInstance.amount}" required=""/>
+	<g:field name="amount" type="number" class="form-control" value="${transactionItemShipsInstance.amount}" required=""/>
 
 </div>
 

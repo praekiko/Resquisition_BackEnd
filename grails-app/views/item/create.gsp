@@ -6,18 +6,27 @@
 		<title><g:message code="default.create.label" args="[entityName]" /></title>
 	</head>
 	<body>
-		<a href="#create-item" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
+		%{-- <a href="#create-item" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
 			</ul>
-		</div>
+		</div> --}%
 		<div id="create-item" class="content scaffold-create" role="main">
 			<h1><g:message code="default.create.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			%{-- <g:render template="../_menu/homeandnew"/> --}%
+			%{-- button to go Home and New --}%
+			<div class="btn-group" role="group" aria-label="...">
+				<ul class="pager">
+					<li><a class="home btn btn-success" href="${createLink(uri: '/')}"><span aria-hidden="true">&laquo;</span> <g:message code="default.home.label"/></a></li>
+					<li><g:link class="list btn btn-success" action="index"><g:message code="default.list.label" args="[entityName]" /></g:link></li>
+				</ul>
+			</div>
+
 			<g:hasErrors bean="${itemInstance}">
 			<ul class="errors" role="alert">
 				<g:eachError bean="${itemInstance}" var="error">
@@ -25,14 +34,16 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
+			
 			<g:form url="[resource:itemInstance, action:'save']" >
-				<fieldset class="form">
+				<fieldset class="form form-horizontal ">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">
-					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+					<g:submitButton name="create" class="save btn btn-primary" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
+			
 		</div>
 	</body>
 </html>

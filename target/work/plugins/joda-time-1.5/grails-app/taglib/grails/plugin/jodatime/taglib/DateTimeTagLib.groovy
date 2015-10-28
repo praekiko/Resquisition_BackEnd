@@ -39,11 +39,21 @@ class DateTimeTagLib {
 		renderPicker(fields, attrs)
 	}
 
-	def dateTimePicker = {attrs ->
-		log.debug '***** joda:dateTimePicker *****'
-		def fields = [DateTimeFieldType.year(), DateTimeFieldType.monthOfYear(), DateTimeFieldType.dayOfMonth(), DateTimeFieldType.hourOfDay(), DateTimeFieldType.minuteOfHour(), DateTimeFieldType.secondOfMinute()]
-		renderPicker(fields, attrs)
-	}
+	// def dateTimePicker = {attrs ->
+	// 	log.debug '***** joda:dateTimePicker *****'
+	// 	def fields = [DateTimeFieldType.year(), DateTimeFieldType.monthOfYear(), DateTimeFieldType.dayOfMonth(), DateTimeFieldType.hourOfDay(), DateTimeFieldType.minuteOfHour(), DateTimeFieldType.secondOfMinute()]
+	// 	renderPicker(fields, attrs)
+	// }
+	def dateTimePicker = {attrs, body ->
+        def time = new LocalDateTime()
+        def format = grailsApplication.config.datetimepicker.format.datetime
+        out << """
+        <div class='input-group datetimepicker' data-date-format="${format}" data-default-time="${time}">
+        ${g.textField('class': 'form-control', name: attrs.name, value: joda.format(value: attrs.beanValue))}
+        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+        </div>
+        """
+    }
 
 	def renderPicker = {List fields, attrs ->
 		def precision = attrs.precision ?: (grailsApplication.config.grails.tags.datePicker.default.precision ?: 'minute')
