@@ -16,6 +16,6 @@ class User {
     }
 
     public String toString() { 
-    	"$id ($name)" 
+    	"$barcode" 
     }
 }

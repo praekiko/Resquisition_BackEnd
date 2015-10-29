@@ -6,12 +6,11 @@
 // to create separate JavaScript files as needed.
 //
 //= require jquery
-//= require_tree .
-//= require_self
 //= require jquery-ui
 //= require bootstrap
 //= require moment.min
 //= require bootstrap-datetimepicker.min
+//= require_self
 
 if (typeof jQuery !== 'undefined') {
 	(function($) {

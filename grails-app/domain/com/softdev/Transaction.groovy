@@ -24,6 +24,6 @@ class Transaction {
     }
 
     public String toString() { 
-    	"id $id : $type"
+    	"id $id : $user [$type]"
     }
 }

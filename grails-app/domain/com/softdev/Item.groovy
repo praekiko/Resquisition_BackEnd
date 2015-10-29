@@ -20,4 +20,22 @@ class Item {
     public String toString() { 
     	title 
     }
+
+    public int getRemaining() { 
+        return remaining 
+    }
+
+    public int setRemaining(int newRemaining) { 
+        remaining = newRemaining
+    }
+
+    // public Boolean rent(int transactionAmount) { 
+    //     Boolean rentStatus
+    //     remaining = remaining - transactionAmount
+    //     if(remaining > 0){
+    //         rentStatus = true
+    //     }
+    //     rentStatus = false
+    //     return rentStatus
+    // }
 }

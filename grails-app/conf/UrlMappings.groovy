@@ -9,5 +9,9 @@ class UrlMappings {
 
         "/"(view:"/index")
         "500"(view:'/error')
+        "/mobile"(view:"/mobile/index")
+        // "/mobile/show/$id?"(controller: 'transaction', action: 'show') {
+        //     // mobile = true
+        // }
 	}
 }

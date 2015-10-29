@@ -18,8 +18,8 @@
 		<span class="required-indicator">*</span>
 	</label>
 
-	<g:datePicker name="date" class="form-control" value="${new Date()}" noSelection="['':'-Choose-']"/>
-	%{-- <joda:dateTimePicker name="date" beanValue="${transactionInstance.date}"/> --}%
+	%{-- <g:datePicker name="date" class="form-control" value="${new Date()}" noSelection="['':'-Choose-']"/> --}%
+	<joda:dateTimePicker name="date" beanValue="${transactionInstance.date}"/>
 
 </div>
 
@@ -66,7 +66,7 @@
 	%{-- <g:render template="../transactionItemShips/form"/> --}%
 	  
 <ul class="one-to-many">
-<g:each in="${transactionInstance?.transactionItemShips?}" var="t">
+<g:each in="${transactionInstance?.transactionItemShips?}" var="t" >
     <li><g:link controller="transactionItemShips" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></li>
 </g:each>
 <li class="add">

@@ -9,11 +9,11 @@ class BootStrap {
     	new UserRole(id: 3, title: 'Maid').save()
     	new UserRole(id: 4, title: 'Student').save()
 
-    	new User(id: 1, name: 'Prae', telNum: '0805415438', barcode: '5610110454', type: UserRole.findByTitle('Admin')).save()
-    	new User(id: 2, name: 'Prae2', telNum: '0805414327', barcode: 'SN^12DASDA', type: UserRole.findByTitle('Student')).save()
-    	new User(id: 3, name: 'Soon', telNum: '0805214327', barcode: 'SN^12DAXXA', type: UserRole.findByTitle('Maid')).save()
-    	new User(id: 4, name: 'Tun', telNum: '0802114327', barcode: 'SN^12DA77A', type: UserRole.findByTitle('Teacher')).save()
-    	new User(id: 5, name: 'Aun', telNum: '080009327', barcode: 'SN^122AXXA', type: UserRole.findByTitle('Student')).save()
+    	new User(id: 1, name: 'นางสาวลลิตวดี ดำยศ', telNum: '0805415438', barcode: '5610110454', type: UserRole.findByTitle('Admin')).save()
+    	new User(id: 2, name: 'นายจริย์วัฒน์ หิรัญวิริยะ ', telNum: '0805414327', barcode: '5610110065', type: UserRole.findByTitle('Student')).save()
+    	new User(id: 3, name: 'นายวรโชติ เสถียรวงศ์นุษา', telNum: '0805214327', barcode: '5610110467', type: UserRole.findByTitle('Maid')).save()
+    	new User(id: 4, name: 'นางสาววาสิฏฐี ลีละศุภกุล', telNum: '0802114327', barcode: '5610110493', type: UserRole.findByTitle('Teacher')).save()
+    	new User(id: 5, name: 'นางสาววิลาสินี นวลงาม ', telNum: '08000932700', barcode: '5610110503', type: UserRole.findByTitle('Student')).save()
     	
 
     	def i1 = new Item(id: 1, title: 'pen', barcode: '123Adashf', remaining: 50, description: 'ปากกานะ').save()
@@ -30,20 +30,20 @@ class BootStrap {
     							 date: new Date('11/21/2015'), 
     							 isApprove: false, 
     							 type: TransactionType.findByTitle('เบิก'),
-    							 user: User.findByName('Prae'),
-                                 description: 'อธิบายการยืมของ Prae').save()
+    							 user: User.findByBarcode('5610110454'),
+                                 description: 'อธิบายการยืมของ 5610110454').save()
     	def t2 = new Transaction(id: 2, 
     							 date: new LocalDateTime(), 
     							 isApprove: true, 
     							 type: TransactionType.findByTitle('เบิก'),
-    							 user: User.findByName('Prae2'),
-                                 description: 'อธิบายการยืมของ Prae2').save()
+    							 user: User.findByBarcode('5610110503'),
+                                 description: 'อธิบายการยืมของ 5610110503').save()
     	def t3 = new Transaction(id: 3, 
     							 date: new Date('12/10/2015'), 
     							 isApprove: true, 
     							 type: TransactionType.findByTitle('ยืม'),
-    							 user: User.findByName('Zoon'),
-                                 description: 'อธิบายการยืมของ (Zoon').save()
+    							 user: User.findByBarcode('5610110467'),
+                                 description: 'อธิบายการยืมของ 5610110467').save()
     	
 
     	def it1 = new TransactionItemShips(transaction: t1, item: i1, amount: 1).save()

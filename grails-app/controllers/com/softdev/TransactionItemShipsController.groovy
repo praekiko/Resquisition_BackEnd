@@ -35,6 +35,15 @@ class TransactionItemShipsController {
             return
         }
 
+        //update remaining value in Item class
+        def item = Item.get(params.item.id)
+        def transactionAmount = transactionItemShipsInstance.amount
+        def currentRemaining = item.getRemaining()
+        currentRemaining = currentRemaining - transactionAmount
+        item.setRemaining(currentRemaining)
+        // item.rent(transactionAmount)
+        item.save() 
+
         transactionItemShipsInstance.save flush:true
 
         request.withFormat {

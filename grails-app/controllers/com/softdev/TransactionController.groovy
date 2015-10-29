@@ -10,12 +10,17 @@ class TransactionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    // params.mobile = false
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Transaction.list(params), model:[transactionInstanceCount: Transaction.count()]
     }
 
     def show(Transaction transactionInstance) {
+        // if (params.mobile) {
+        //     render view: '/mobile/show'
+        // }
         respond transactionInstance
     }
 
