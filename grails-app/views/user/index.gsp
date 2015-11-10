@@ -20,6 +20,7 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
+
 			%{-- button to go Home and New --}%
 			<div class="btn-group" role="group" aria-label="...">
 			  <ul class="pager">
@@ -31,11 +32,15 @@
 			<thead>
 					<tr>
 					
+						<g:sortableColumn property="barcode" title="${message(code: 'user.barcode.label', default: 'Barcode')}" />
+					
+						<g:sortableColumn property="username" title="${message(code: 'user.username.label', default: 'Username')}" />
+					
+						<g:sortableColumn property="password" title="${message(code: 'user.password.label', default: 'Password')}" />
+					
 						<g:sortableColumn property="name" title="${message(code: 'user.name.label', default: 'Name')}" />
 					
 						<g:sortableColumn property="telNum" title="${message(code: 'user.telNum.label', default: 'Tel Num')}" />
-					
-						<g:sortableColumn property="barcode" title="${message(code: 'user.barcode.label', default: 'Barcode')}" />
 					
 						<th><g:message code="user.type.label" default="Type" /></th>
 					
@@ -45,11 +50,15 @@
 				<g:each in="${userInstanceList}" status="i" var="userInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "name")}</g:link></td>
+						<td><g:link action="show" id="${userInstance.id}">${fieldValue(bean: userInstance, field: "barcode")}</g:link></td>
+					
+						<td>${fieldValue(bean: userInstance, field: "username")}</td>
+					
+						<td>${fieldValue(bean: userInstance, field: "password")}</td>
+					
+						<td>${fieldValue(bean: userInstance, field: "name")}</td>
 					
 						<td>${fieldValue(bean: userInstance, field: "telNum")}</td>
-					
-						<td>${fieldValue(bean: userInstance, field: "barcode")}</td>
 					
 						<td>${fieldValue(bean: userInstance, field: "type")}</td>
 					
@@ -57,6 +66,9 @@
 				</g:each>
 				</tbody>
 			</table>
+			%{-- <div class="pagination">
+				<g:paginate total="${userInstanceCount ?: 0}" />
+			</div> --}%
 			<div align="center">
 				<nav>
 					<ul class="pagination">
@@ -68,10 +80,6 @@
 					</ul>
 				</nav>
 			</div>
-			%{-- <div class="pagination">
-				<g:paginate total="${userInstanceCount ?: 0}" />
-			</div> --}%
 		</div>
-
 	</body>
 </html>

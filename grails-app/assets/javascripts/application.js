@@ -10,6 +10,8 @@
 //= require bootstrap
 //= require moment.min
 //= require bootstrap-datetimepicker.min
+//= require chosen.jquery.min
+//= require html5-qrcode.min
 //= require_self
 
 if (typeof jQuery !== 'undefined') {

@@ -7,7 +7,7 @@
 		<g:message code="transactionItemShips.transaction.label" default="Transaction" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="transaction" name="transaction.id" from="${com.softdev.Transaction.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.transaction?.id}" class="many-to-one form-control"/>
+	<g:select id="transaction" name="transaction.id" from="${com.softdev.Transaction.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.transaction?.id}" class="many-to-one form-control  chosen-select"/>
 
 </div>
 
@@ -16,9 +16,15 @@
 		<g:message code="transactionItemShips.item.label" default="Item" />
 		<span class="required-indicator">*</span>
 	</label>
-	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control"/>
+	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select"/>
 
 </div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	 $(".chosen-select").chosen({width: "20%"}); 
+});
+</script>
 
 <div class="fieldcontain form-inline ${hasErrors(bean: transactionItemShipsInstance, field: 'amount', 'error')} required">
 	<label for="amount" class="col-sm-2 control-label">

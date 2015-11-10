@@ -10,7 +10,6 @@ class ItemController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Item.list(params), model:[itemInstanceCount: Item.count()]
@@ -102,5 +101,4 @@ class ItemController {
             '*'{ render status: NOT_FOUND }
         }
     }
-
 }

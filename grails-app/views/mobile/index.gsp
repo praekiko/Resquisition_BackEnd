@@ -11,19 +11,21 @@
 	<asset:stylesheet src="application.css"/>
 	<asset:javascript src="application.js"/>
 
-	<g:set var="entityName" value="${message(code: 'transaction.label', default: 'Transaction')}" />
-
+	<script type="text/javascript">
+		function onscan(bardata) {
+			alert( "Barcode result : " + bardata );
+		}
+		function startscan(barfield) {
+			window.location = "readbarcode://"+barfield;
+		}
+	</script>
 </head>
-<body>	
-	%{-- Header --}%
-	<nav class="navbar navbar-default">
-	  <div class="container-fluid">
-	    <div class="navbar-header">
-	      <a class="navbar-brand" href="${createLink(uri: '/mobile')}"><span class="label label-success">CoE</span> Requisition</a>
-	    </div>
-	   
-	  </div><!-- /.container-fluid -->
-	</nav>
+<body>
+
+	<div class="page-header">
+		<h1><span class="label label-success" >CoE</span> Requisition <small>2015</small></h1>
+	</div>
+
 
 	<g:hasErrors bean="${transactionInstance}">
 	<ul class="errors" role="alert">
@@ -33,116 +35,63 @@
 	</ul>
 	</g:hasErrors>
 
-	%{-- Form --}%
-	<div class="row">
-		<g:form controller="transaction" action="save">
-			<fieldset class="form form-horizontal">
-				%{-- User --}%
-				<div class="fieldcontain col-sm-9 form-inline ${hasErrors(bean: transactionInstance, field: 'user', 'error')} required">
-					
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<label for="user" class="col-sm-2 control-label">
-									<g:message code="transaction.user.label" default="User" />
-									<span class="required-indicator">*</span>
-								</label>
-							</div>
-							<g:select id="user" name="user.id" from="${com.softdev.User.list()}" optionKey="id"  required="" value="${transactionInstance?.user?.id}" class="many-to-one form-control" noSelection="['' :'Choose User']" />
-							<span class="input-group-btn">
-						        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-camera" aria-hidden="true"></span></button>
-						    </span>
-						</div>
-					</div>				
+	<g:form controller="transaction" action="save">
+		<div class="row ${hasErrors(bean: transactionInstance, field: 'user', 'error')} required">
+			<div class="col-lg-12">
+				<div class="input-group">
+				<span class="input-group-addon" id="sizing-addon1">User</span>
+				<input type="text" class="form-control" placeholder="Barcode" id="user" name="user.username" >
+	    		<span class="input-group-btn">
+		    		<button class="btn btn-default" type="button" onclick="startscan('user')">Scan!</button>
+				</span>
+				%{-- <g:select id="user" name="user.id" from="${com.softdev.User.list()}" optionKey="id" required="" value="${transactionInstance?.user?.id}" class="many-to-one col-sm-2 chosen-select form-control" noSelection="['' :'Choose User']"/> --}%
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
 
-				</div>
+		<div class="row ${hasErrors(bean: transactionInstance, field: 'date', 'error')} required">
+			<div class="col-lg-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon1">Date</span>
+					<g:datePicker name="date" class="form-control" value="${new Date()}" /> 
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
 
-				%{-- Date --}%
-				<div class="fieldcontain col-sm-9 form-inline ${hasErrors(bean: transactionInstance, field: 'date', 'error')} required">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<label for="date" class="col-sm-2 control-label">
-									<g:message code="transaction.date.label" default="Date" />
-									<span class="required-indicator">*</span>
-								</label>
-							</div>
-							<g:datePicker name="date" value="${new Date()}" noSelection="['':'-Choose-']"/>
-							%{-- <joda:dateTimePicker name="date" beanValue="${transactionInstance.date}"/> --}%
-							
-							<span class="input-group-btn">
-						        <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-calendar" aria-hidden="true"></span></button>
-						    </span>
-						</div>
-					</div>			
+		<div class="row ${hasErrors(bean: transactionInstance, field: 'isApprove', 'error')} ">
+			<div class="col-lg-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon1">Approved?</span>
+					<g:checkBox name="isApprove" value="${transactionInstance?.isApprove}"/>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
 
-				</div>
 
-				%{-- IsApprove --}%
-				<div class="fieldcontain col-sm-9 form-inline ${hasErrors(bean: transactionInstance, field: 'isApprove', 'error')} ">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<label for="isApprove" class="col-sm-2 control-label">
-									<g:message code="transaction.isApprove.label" default="Is Approve" />
-									<span class="required-indicator"></span>
-								</label>
-							</div>
-							<g:checkBox name="isApprove" class="checkbox-inline" value="${transactionInstance?.isApprove}" /> 
+		<div class="row ${hasErrors(bean: transactionInstance, field: 'type', 'error')} required">
+			<div class="col-lg-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon1">Type</span>
+					<g:select id="type" name="type.id" from="${com.softdev.TransactionType.list()}" optionKey="id" required="" value="${transactionInstance?.type?.id}" class="many-to-one form-control"/>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
 
-							<div class="input-group-addon">
-						        อนุมัติแล้ว	
-						    </div>		
-						</div>
-					</div>	
 
-				</div>
+		<div class="row ${hasErrors(bean: transactionInstance, field: 'description', 'error')} required">
+			<div class="col-lg-12">
+				<div class="input-group">
+					<span class="input-group-addon" id="sizing-addon1">Description</span>
+					<g:textArea name="description" cols="40" rows="2" maxlength="5000" required="" value="${transactionInstance?.description}" class="form-control"/>
+				</div><!-- /input-group -->
+			</div><!-- /.col-lg-6 -->
+		</div><!-- /.row -->
 
-				%{-- Type --}%
-				<div class="fieldcontain col-sm-9 form-inline ${hasErrors(bean: transactionInstance, field: 'type', 'error')} required">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<label for="type"  class="col-sm-2 control-label">
-									<g:message code="transaction.type.label" default="Type" />
-									<span class="required-indicator">*</span>
-								</label>
-							</div>
-					
-							<g:select id="type" name="type.id" from="${com.softdev.TransactionType.list()}" optionKey="id" required="" value="${transactionInstance?.type?.id}" class="many-to-one form-control"/>
-							%{-- <div class="input-group-addon">
-						    </div> --}%
-						</div>
-					</div>	
 
-				</div>
 
-				%{-- Description --}%
-				<div class="fieldcontain col-sm-9 form-inline ${hasErrors(bean: transactionInstance, field: 'description', 'error')} required">
-					<div class="form-group">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<label for="description" class="col-sm-2 control-label">
-									<g:message code="transaction.description.label" default="Description" />
-									<span class="required-indicator">*</span>
-								</label>
-							</div>
-							<g:textArea name="description" class="form-control" cols="40" rows="3" maxlength="5000" required="" value="${transactionInstance?.description}"/>
-						</div>
-					</div>	
-
-				</div>
-			</fieldset>%{-- End form --}%
-
-			<br>
-			%{-- Create Button --}%
-			<div align="center">
-				<fieldset class="buttons col-sm-9">
-					<g:submitButton name="create" class="save btn btn-success btn-lg btn-block" value="${message(code: 'default.button.create.label', default: 'Create')}" />
-				</fieldset>
-			</div>
-
-		</g:form>
-	</div>	%{-- div row --}%
+		<br>
+		%{-- Create Button --}%
+	 	<g:submitButton name="create" class="save btn btn-success btn-lg btn-block" value="${message(code: 'default.button.create.label', default: 'Create')}" />
+	</g:form>
 </body>
 </html>

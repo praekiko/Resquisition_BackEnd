@@ -1,41 +1,40 @@
 package com.softdev
 
 class Item {
-	int id
-	String title
+	// int id
 	String barcode
+    String title
+    String unit
+    int remaining
     String description
-	int remaining
 
 	static hasMany = [transactionItemShips: TransactionItemShips]
 
     static constraints = {
-    	id nullable: false
-    	title blank: false
+    	// id nullable: false
     	barcode blank: false
+        title blank: false
+        unit blank: false
     	remaining nullable: false
         description blank: true, maxSize: 5000
     }
 
     public String toString() { 
-    	title 
+    	"$barcode" 
     }
 
-    public int getRemaining() { 
-        return remaining 
+    public boolean rent(int transactionAmount){
+        if(this.remaining >= transactionAmount){
+            this.remaining -= transactionAmount   
+            return true         
+        }
+        else {
+            println "Amount is invalid"
+            return false
+        }
     }
 
-    public int setRemaining(int newRemaining) { 
-        remaining = newRemaining
+    public boolean addOldAmountBeforeEdit(int oldAmount){
+        this.remaining += oldAmount
     }
-
-    // public Boolean rent(int transactionAmount) { 
-    //     Boolean rentStatus
-    //     remaining = remaining - transactionAmount
-    //     if(remaining > 0){
-    //         rentStatus = true
-    //     }
-    //     rentStatus = false
-    //     return rentStatus
-    // }
 }

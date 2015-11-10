@@ -1,17 +1,22 @@
 package com.softdev
 
 class User {
-	int id
-	String name
-	String telNum
-	String barcode
+	// int id
+    String barcode
+    String username
+    String password
+    String name
+    String telNum
+    // Boolean isPersonnel
 	UserRole type
 
     static constraints = {
-    	id nullable: false
-    	name blank: false
-    	telNum blank: false
+    	// id nullable: false
     	barcode blank: false
+        username blank: false
+        password blank: false
+        name blank: false
+        telNum blank: false
     	type nullable: false
     }
 

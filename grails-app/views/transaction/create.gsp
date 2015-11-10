@@ -33,7 +33,7 @@
 			</ul>
 			</g:hasErrors>
 			<g:form url="[resource:transactionInstance, action:'save']" >
-				<fieldset class="form form-horizontal">
+				<fieldset class="form">
 					<g:render template="form"/>
 
 				</fieldset>

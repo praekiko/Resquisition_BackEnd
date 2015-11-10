@@ -16,6 +16,7 @@ class TransactionItemShipsController {
     }
 
     def show(TransactionItemShips transactionItemShipsInstance) {
+
         respond transactionItemShipsInstance
     }
 
@@ -38,29 +39,39 @@ class TransactionItemShipsController {
         //update remaining value in Item class
         def item = Item.get(params.item.id)
         def transactionAmount = transactionItemShipsInstance.amount
-        def currentRemaining = item.getRemaining()
-        currentRemaining = currentRemaining - transactionAmount
-        item.setRemaining(currentRemaining)
-        // item.rent(transactionAmount)
-        item.save() 
-
-        transactionItemShipsInstance.save flush:true
-
+        if(item.rent(transactionAmount)){
+            item.save()     
+            transactionItemShipsInstance.save flush:true
+        }
+        else {
+            // alert
+        }
+        // print transactionItemShipsInstance.transaction.id
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'transactionItemShips.label', default: 'TransactionItemShips'), transactionItemShipsInstance.id])
-                redirect transactionItemShipsInstance
+                // redirect transactionItemShipsInstance
+                redirect (controller: "transaction", action: "edit", id: transactionItemShipsInstance.transaction.id)
             }
             '*' { respond transactionItemShipsInstance, [status: CREATED] }
         }
     }
 
     def edit(TransactionItemShips transactionItemShipsInstance) {
+        // Add remaing bofore edit in Item class
+        def item = Item.get(transactionItemShipsInstance.item.id)
+        def oldAmount = transactionItemShipsInstance.amount
+        item.addOldAmountBeforeEdit(oldAmount)
+        item.save()
+
+        transactionItemShipsInstance.save flush:true
+
         respond transactionItemShipsInstance
     }
 
     @Transactional
-    def update(TransactionItemShips transactionItemShipsInstance) {
+    def update(TransactionItemShips transactionItemShipsInstance) {        
+
         if (transactionItemShipsInstance == null) {
             notFound()
             return
@@ -71,12 +82,26 @@ class TransactionItemShipsController {
             return
         }
 
-        transactionItemShipsInstance.save flush:true
+        //update remaining value in Item class
+        def item = Item.get(transactionItemShipsInstance.item.id)
+        def transactionAmount = transactionItemShipsInstance.amount
+        if(item.rent(transactionAmount)){
+            item.save()     
+            transactionItemShipsInstance.save flush:true
+        }
+        else {
+            // alert
+        }
+        // item.rent(transactionAmount)
+        // item.save()
+
+        // transactionItemShipsInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'TransactionItemShips.label', default: 'TransactionItemShips'), transactionItemShipsInstance.id])
-                redirect transactionItemShipsInstance
+                // redirect transactionItemShipsInstance
+                redirect (controller: "transaction", action: "edit", id: transactionItemShipsInstance.transaction.id)
             }
             '*'{ respond transactionItemShipsInstance, [status: OK] }
         }

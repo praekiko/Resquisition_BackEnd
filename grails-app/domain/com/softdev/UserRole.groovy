@@ -1,13 +1,13 @@
 package com.softdev
 
 class UserRole {
-	int id
+	// int id
 	String title
 
 	static hasMany = [users: User]
 
     static constraints = {
-    	id nullable: false
+    	// id nullable: false
     	title blank: false
     }
 

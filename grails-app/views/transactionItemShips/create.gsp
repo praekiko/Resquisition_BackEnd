@@ -33,7 +33,8 @@
 			</ul>
 			</g:hasErrors>
 			<g:form url="[resource:transactionItemShipsInstance, action:'save']" >
-				<fieldset class="form form-horizontal">
+				%{-- <fieldset class="form form-horizontal"> --}%
+				<fieldset class="form">
 					<g:render template="form"/>
 				</fieldset>
 				<fieldset class="buttons">

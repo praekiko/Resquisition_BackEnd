@@ -34,7 +34,7 @@
 			<ul class="list-group">
 			
 				<g:if test="${transactionInstance?.user}">
-				<li class="fieldcontain list-group-item list-group-item">
+				<li class="fieldcontain list-group-item">
 					<span id="user-label" class="property-label"><g:message code="transaction.user.label" default="User" /></span>
 					
 						<span class="property-value pull-right" aria-labelledby="user-label"><g:link controller="user" action="show" id="${transactionInstance?.user?.id}">${transactionInstance?.user?.encodeAsHTML()}</g:link></span>

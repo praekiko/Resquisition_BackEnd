@@ -13,4 +13,5 @@
 *= require bootstrap
 *= require bootstrap_flaty.min
 *= require bootstrap-datetimepicker.min
+*= require chosen
 */

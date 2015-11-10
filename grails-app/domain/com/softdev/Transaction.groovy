@@ -1,10 +1,9 @@
 package com.softdev
 
 import org.joda.time.LocalDateTime
-// import org.joda.time.*
 
 class Transaction {
-	int id
+	// int id
 	LocalDateTime date
 	Boolean isApprove
 	TransactionType type
@@ -15,7 +14,7 @@ class Transaction {
 
 
     static constraints = {
-    	id nullable: false
+    	// id nullable: false
     	user nullable: false
     	date nullable: false
     	isApprove nullable: false
@@ -24,6 +23,6 @@ class Transaction {
     }
 
     public String toString() { 
-    	"id $id : $user [$type]"
+    	"ID $id : $user [$type]"
     }
 }

@@ -9,19 +9,18 @@
 	</head>
 	<body>
 		%{-- <a href="#list-item" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
-
 		<div class="nav" role="navigation">
 			<ul>
 				<li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
 				<li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			</ul>
 		</div> --}%
-		
 		<div id="list-item" class="content scaffold-list" role="main">
 			<h1><g:message code="default.list.label" args="[entityName]" /></h1>
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
+
 			%{-- button to go Home and New --}%
 			<div class="btn-group" role="group" aria-label="...">
 			  <ul class="pager">
@@ -33,9 +32,11 @@
 			<thead>
 					<tr>
 					
+						<g:sortableColumn property="barcode" title="${message(code: 'item.barcode.label', default: 'Barcode')}" />
+					
 						<g:sortableColumn property="title" title="${message(code: 'item.title.label', default: 'Title')}" />
 					
-						<g:sortableColumn property="barcode" title="${message(code: 'item.barcode.label', default: 'Barcode')}" />
+						<g:sortableColumn property="unit" title="${message(code: 'item.unit.label', default: 'Unit')}" />
 					
 						<g:sortableColumn property="remaining" title="${message(code: 'item.remaining.label', default: 'Remaining')}" />
 					
@@ -47,9 +48,11 @@
 				<g:each in="${itemInstanceList}" status="i" var="itemInstance">
 					<tr class="${(i % 2) == 0 ? 'even' : 'odd'}">
 					
-						<td><g:link action="show" id="${itemInstance.id}">${fieldValue(bean: itemInstance, field: "title")}</g:link></td>
+						<td><g:link action="show" id="${itemInstance.id}">${fieldValue(bean: itemInstance, field: "barcode")}</g:link></td>
 					
-						<td>${fieldValue(bean: itemInstance, field: "barcode")}</td>
+						<td>${fieldValue(bean: itemInstance, field: "title")}</td>
+					
+						<td>${fieldValue(bean: itemInstance, field: "unit")}</td>
 					
 						<td>${fieldValue(bean: itemInstance, field: "remaining")}</td>
 					
@@ -59,7 +62,9 @@
 				</g:each>
 				</tbody>
 			</table>
-
+			%{-- <div class="pagination">
+				<g:paginate total="${itemInstanceCount ?: 0}" />
+			</div> --}%
 			<div align="center">
 				<nav>
 					<ul class="pagination">
@@ -71,29 +76,6 @@
 					</ul>
 				</nav>
 			</div>
-			%{-- <div class="pagination">
-				<g:paginate total="${itemInstanceCount ?: 0}" />
-			</div> --}%
 		</div>
-		%{-- next page --}%
-		%{-- <nav>
-		  <ul class="pagination pagination-sm">
-		    <li>
-		      <a href="#" aria-label="Previous">
-		        <span aria-hidden="true">&laquo;</span>
-		      </a>
-		    </li>
-		    <li><a href="#">1</a></li>
-		    <li><a href="#">2</a></li>
-		    <li><a href="#">3</a></li>
-		    <li><a href="#">4</a></li>
-		    <li><a href="#">5</a></li>
-		    <li>
-		      <a href="#" aria-label="Next">
-		        <span aria-hidden="true">&raquo;</span>
-		      </a>
-		    </li>
-		  </ul>
-		</nav> --}%
 	</body>
 </html>

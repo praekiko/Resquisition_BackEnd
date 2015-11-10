@@ -21,6 +21,7 @@
 			<g:if test="${flash.message}">
 			<div class="message" role="status">${flash.message}</div>
 			</g:if>
+
 			%{-- button to go Home and New --}%
 			<div class="btn-group" role="group" aria-label="...">
 			  <ul class="pager">
@@ -33,6 +34,16 @@
 			%{-- <div align="center"> --}%
 			<div class="col-lg-8 col-lg-offset-2" >
 			<ul class="list-group">
+			%{-- <ol class="property-list item"> --}%
+			
+				<g:if test="${itemInstance?.barcode}">
+				<li class="fieldcontain list-group-item">
+					<span id="barcode-label" class="property-label"><g:message code="item.barcode.label" default="Barcode" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="barcode-label"><g:fieldValue bean="${itemInstance}" field="barcode"/></span>
+					
+				</li>
+				</g:if>
 			
 				<g:if test="${itemInstance?.title}">
 				<li class="fieldcontain list-group-item">
@@ -43,11 +54,11 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${itemInstance?.barcode}">
+				<g:if test="${itemInstance?.unit}">
 				<li class="fieldcontain list-group-item">
-					<span id="barcode-label" class="property-label"><g:message code="item.barcode.label" default="Barcode" /></span>
+					<span id="unit-label" class="property-label"><g:message code="item.unit.label" default="Unit" /></span>
 					
-						<span class="property-value pull-right" aria-labelledby="barcode-label"><g:fieldValue bean="${itemInstance}" field="barcode"/></span>
+						<span class="property-value pull-right" aria-labelledby="unit-label"><g:fieldValue bean="${itemInstance}" field="unit"/></span>
 					
 				</li>
 				</g:if>
@@ -73,7 +84,7 @@
 				<g:if test="${itemInstance?.transactionItemShips}">
 				<li class="fieldcontain list-group-item">
 					<span id="transactionItemShips-label" class="property-label"><g:message code="item.transactionItemShips.label" default="Transaction Item Ships" /></span>
-						
+					
 						<g:each in="${itemInstance.transactionItemShips}" var="t">
 						<span class="property-value pull-right" aria-labelledby="transactionItemShips-label"><g:link controller="transactionItemShips" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></span><br>
 						</g:each>
@@ -81,6 +92,7 @@
 				</li>
 				</g:if>
 				</ul>
+			
 			%{-- </ol> --}%
 			<br>
 			<g:form url="[resource:itemInstance, action:'delete']" method="DELETE">
@@ -89,7 +101,6 @@
 					<g:actionSubmit class="delete btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
-			</div>
 		</div>
 	</body>
 </html>

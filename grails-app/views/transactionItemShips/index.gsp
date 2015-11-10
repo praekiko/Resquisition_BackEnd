@@ -20,6 +20,7 @@
 			<g:if test="${flash.message}">
 				<div class="message" role="status">${flash.message}</div>
 			</g:if>
+			
 			%{-- button to go Home and New --}%
 			<div class="btn-group" role="group" aria-label="...">
 			  <ul class="pager">

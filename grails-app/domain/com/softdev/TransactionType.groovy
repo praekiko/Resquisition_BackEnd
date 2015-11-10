@@ -1,11 +1,11 @@
 package com.softdev
 
 class TransactionType {
-	int id
+	// int id
 	String title
 	
     static constraints = {
-    	id nullable: false
+    	// id nullable: false
     	title blank: false
     }
 

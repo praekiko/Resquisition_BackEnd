@@ -10,17 +10,12 @@ class TransactionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    // params.mobile = false
-
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond Transaction.list(params), model:[transactionInstanceCount: Transaction.count()]
     }
 
     def show(Transaction transactionInstance) {
-        // if (params.mobile) {
-        //     render view: '/mobile/show'
-        // }
         respond transactionInstance
     }
 
@@ -30,6 +25,15 @@ class TransactionController {
 
     @Transactional
     def save(Transaction transactionInstance) {
+        print params.user
+        def result = User.findByUsername(params.user.username)
+        // print "find by" + result.id
+        // def userBarcode = params.user.barcode
+        // def result = User.findByUsername(params.user.barcode as String)
+        // print result
+        //transactionInstance.user.username = params.user.id
+        transactionInstance.user.id = result.id
+        print transactionInstance
         if (transactionInstance == null) {
             notFound()
             return

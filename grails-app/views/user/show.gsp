@@ -33,6 +33,33 @@
 			<div class="col-lg-8 col-lg-offset-2" >
 			<ul class="list-group">
 			
+				<g:if test="${userInstance?.barcode}">
+				<li class="fieldcontain list-group-item">
+					<span id="barcode-label" class="property-label"><g:message code="user.barcode.label" default="Barcode" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="barcode-label"><g:fieldValue bean="${userInstance}" field="barcode"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${userInstance?.username}">
+				<li class="fieldcontain list-group-item">
+					<span id="username-label" class="property-label"><g:message code="user.username.label" default="Username" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="username-label"><g:fieldValue bean="${userInstance}" field="username"/></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${userInstance?.password}">
+				<li class="fieldcontain list-group-item">
+					<span id="password-label" class="property-label"><g:message code="user.password.label" default="Password" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="password-label"><g:fieldValue bean="${userInstance}" field="password"/></span>
+					
+				</li>
+				</g:if>
+			
 				<g:if test="${userInstance?.name}">
 				<li class="fieldcontain list-group-item">
 					<span id="name-label" class="property-label"><g:message code="user.name.label" default="Name" /></span>
@@ -51,15 +78,6 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${userInstance?.barcode}">
-				<li class="fieldcontain list-group-item">
-					<span id="barcode-label" class="property-label"><g:message code="user.barcode.label" default="Barcode" /></span>
-					
-						<span class="property-value pull-right" aria-labelledby="barcode-label"><g:fieldValue bean="${userInstance}" field="barcode"/></span>
-					
-				</li>
-				</g:if>
-			
 				<g:if test="${userInstance?.type}">
 				<li class="fieldcontain list-group-item">
 					<span id="type-label" class="property-label"><g:message code="user.type.label" default="Type" /></span>
@@ -69,12 +87,11 @@
 				</li>
 				</g:if>
 			
-			%{-- </ol> --}%
-			<br>
+			</ol>
 			<g:form url="[resource:userInstance, action:'delete']" method="DELETE">
 				<fieldset class="buttons">
-					<g:link class="edit btn btn-warning" action="edit" resource="${userInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
-					<g:actionSubmit class="delete btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+					<g:link class="edit" action="edit" resource="${userInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+					<g:actionSubmit class="delete" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
 				</fieldset>
 			</g:form>
 		</div>
