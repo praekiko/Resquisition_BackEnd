@@ -1,8 +1,8 @@
-<nav class="navbar navbar-default">
+<nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="${createLink(uri: '/')}"><span class="label label-success">CoE</span> Requisition</a>
+      <a class="navbar-brand" href="${createLink(uri: '/')}"><span class="label label-primary">CoE</span> Requisition</a>
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>

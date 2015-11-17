@@ -2,12 +2,14 @@
 
 
 
-<div class="fieldcontain form-inline ${hasErrors(bean: userRoleInstance, field: 'title', 'error')} required">
-	<label for="title" class="col-sm-2 control-label">
+<div class="fieldcontain form-group ${hasErrors(bean: userRoleInstance, field: 'title', 'error')} required">
+	<label for="title" class="col-lg-2 control-label">
 		<g:message code="userRole.title.label" default="Title" />
 		<span class="required-indicator">*</span>
 	</label>
+	<div class="col-lg-10">
 	<g:textField name="title" class="form-control" required="" value="${userRoleInstance?.title}"/>
+	</div>
 
 </div>
 

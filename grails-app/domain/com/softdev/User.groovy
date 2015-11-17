@@ -10,6 +10,11 @@ class User {
     // Boolean isPersonnel
 	UserRole type
 
+    static mapping = {
+        // id name: 'barcode'
+        // id column: 'barcode', generator: 'assigned'
+    }
+
     static constraints = {
     	// id nullable: false
     	barcode blank: false
@@ -21,6 +26,6 @@ class User {
     }
 
     public String toString() { 
-    	"$barcode" 
+    	barcode 
     }
 }

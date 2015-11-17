@@ -21,6 +21,7 @@ class TransactionItemShipsController {
     }
 
     def create() {
+        print params
         respond new TransactionItemShips(params)
     }
 
@@ -114,8 +115,20 @@ class TransactionItemShipsController {
             notFound()
             return
         }
+        print transactionItemShipsInstance
+        //update remaining value in Item class
+        def item = Item.get(transactionItemShipsInstance.item.id)
+        def transactionAmount = transactionItemShipsInstance.amount
+        print transactionAmount
+        if(item.addOldAmountBeforeEdit(transactionAmount)){
+            // item.save()     
+            transactionItemShipsInstance.delete flush:true
+        }
+        else {
+            // alert
+        }
 
-        transactionItemShipsInstance.delete flush:true
+        // transactionItemShipsInstance.delete flush:true
 
         request.withFormat {
             form multipartForm {

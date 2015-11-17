@@ -22,6 +22,10 @@ class Transaction {
         description blank: true, maxSize: 5000
     }
 
+    static mapping = {
+        transactionItemShips cascade: 'all-delete-orphan'
+    }
+
     public String toString() { 
     	"ID $id : $user [$type]"
     }

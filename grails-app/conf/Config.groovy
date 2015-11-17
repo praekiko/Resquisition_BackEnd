@@ -114,6 +114,9 @@ log4j.main = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    debug  'grails.app.controllers.store',
+           'grails.app.services.store'
 }
 
 jodatime.format.org.joda.time.LocalDateTime = "dd-MM-yy HH:mm"

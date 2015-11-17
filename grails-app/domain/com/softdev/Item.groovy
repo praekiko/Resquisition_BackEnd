@@ -10,6 +10,12 @@ class Item {
 
 	static hasMany = [transactionItemShips: TransactionItemShips]
 
+    static mapping = {
+        // id name: 'barcode'
+        // id column: 'barcode', type: 'String'
+        // id column: 'barcode'
+    }
+
     static constraints = {
     	// id nullable: false
     	barcode blank: false
@@ -20,7 +26,7 @@ class Item {
     }
 
     public String toString() { 
-    	"$barcode" 
+    	barcode
     }
 
     public boolean rent(int transactionAmount){
@@ -36,5 +42,6 @@ class Item {
 
     public boolean addOldAmountBeforeEdit(int oldAmount){
         this.remaining += oldAmount
+        return true
     }
 }

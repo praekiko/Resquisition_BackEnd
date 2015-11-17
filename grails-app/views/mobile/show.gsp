@@ -3,18 +3,19 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Create Transaction : Mobile View</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<asset:stylesheet src="application.css"/>
-	<asset:javascript src="application.js"/>
-
-	<g:set var="entityName" value="${message(code: 'transaction.label', default: 'Transaction')}" />
+	<meta name="layout" content="mobile">
 
 </head>
 <body>	
-<div class="col-lg-8 col-lg-offset-2" >
+	<div class="well bs-component">
+		<legend class="text-success">Transaction</legend>
+		<g:hasErrors bean="${transactionInstance}">
+		<ul class="errors" role="alert">
+			<g:eachError bean="${transactionInstance}" var="error">
+				<li <g:if test="${error in org.springframework.validation.FieldError}">data-field-id="${error.field}"</g:if>><g:message error="${error}"/></li>
+			</g:eachError>
+		</ul>
+		</g:hasErrors>
 			<ul class="list-group">
 			
 				<g:if test="${transactionInstance?.user}">
@@ -74,12 +75,14 @@
 				</g:if>
 			
 			%{-- </ol> --}%
-			<br>
-			%{-- <g:form url="[resource:transactionInstance, action:'delete']" method="DELETE"> --}%
-				%{-- <fieldset class="buttons">
-					<g:link class="edit btn btn-warning" action="edit" resource="${transactionInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
+			%{-- <br>
+			<div align="center">
+					<g:link class="edit btn btn-warning" controller="mobile" action="edit" resource="${transactionInstance}"><g:message code="default.button.edit.label" default="Edit" /></g:link>
 					<g:actionSubmit class="delete btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
-				</fieldset> --}%
-			%{-- </g:form> --}%
+			</div> --}%
+
+	</div>
+
+
 	</body>
 </html>

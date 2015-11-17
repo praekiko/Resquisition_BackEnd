@@ -7,6 +7,6 @@
 	</a> --}%
 	<div class="jumbotron">
 	  <h1>Welcome</h1>
-	  <p><span class="label label-success">CoE</span> Requisition</p>
+	  <p><span class="label label-primary">CoE</span> Requisition</p>
 	</div>
 </div>

@@ -9,6 +9,10 @@ class MyNewTagLib {
     def newDatePicker = { attrs, body ->
 		def time = new LocalDateTime()
         def format = grailsApplication.config.datetimepicker.format.datetime
+        if(attrs.beanValue == null){
+            attrs.beanValue = new LocalDateTime()
+        }
+        // print attrs.beanValue
         out << 	"""
         		<div class='input-group datetimepicker' data-date-format="${format}" data-default-time="${time}">
         			${g.textField('class': 'form-control', name: attrs.name, value: joda.format(value: attrs.beanValue))}

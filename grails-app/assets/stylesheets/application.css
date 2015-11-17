@@ -11,7 +11,9 @@
 *= require mobile
 *= require_self
 *= require bootstrap
-*= require bootstrap_flaty.min
+* require bootstrap_flaty.min
+*= require bootstrap_Lumen
+* require bootstrap_Sandstone
 *= require bootstrap-datetimepicker.min
 *= require chosen
 */

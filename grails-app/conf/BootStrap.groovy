@@ -40,19 +40,18 @@ class BootStrap {
 
     	new TransactionType(title: 'เบิก').save()
     	new TransactionType(title: 'ยืม').save()
-        new TransactionType(title: 'ถอน').save()
 
     	// transaction
     	def t1 = new Transaction(date: new Date('11/21/2015'), 
     							 isApprove: false, 
     							 type: TransactionType.findByTitle('เบิก'),
     							 user: User.findByBarcode('5610110454'),
-                                 description: 'อธิบายการยืมของ 5610110454').save()
+                                 description: 'อธิบายการเบิกของ 5610110454').save()
     	def t2 = new Transaction(date: new LocalDateTime(), 
     							 isApprove: true, 
     							 type: TransactionType.findByTitle('เบิก'),
     							 user: User.findByBarcode('5610110503'),
-                                 description: 'อธิบายการยืมของ 5610110503').save()
+                                 description: 'อธิบายการเบิกของ 5610110503').save()
     	def t3 = new Transaction(date: new Date('12/10/2015'), 
     							 isApprove: true, 
     							 type: TransactionType.findByTitle('ยืม'),

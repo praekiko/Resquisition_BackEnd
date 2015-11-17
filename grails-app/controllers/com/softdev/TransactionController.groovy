@@ -61,6 +61,7 @@ class TransactionController {
 
     @Transactional
     def update(Transaction transactionInstance) {
+        // print transactionInstance
         if (transactionInstance == null) {
             notFound()
             return
@@ -88,6 +89,9 @@ class TransactionController {
         if (transactionInstance == null) {
             notFound()
             return
+        }
+        transactionInstance.transactionItemShips.each { transactionItemShipsInstance ->
+            transactionItemShipsInstance.delete flush:true
         }
 
         transactionInstance.delete flush:true
