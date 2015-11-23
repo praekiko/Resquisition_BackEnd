@@ -16,12 +16,10 @@ class TransactionItemShipsController {
     }
 
     def show(TransactionItemShips transactionItemShipsInstance) {
-
         respond transactionItemShipsInstance
     }
 
     def create() {
-        print params
         respond new TransactionItemShips(params)
     }
 
@@ -40,14 +38,14 @@ class TransactionItemShipsController {
         //update remaining value in Item class
         def item = Item.get(params.item.id)
         def transactionAmount = transactionItemShipsInstance.amount
-        if(item.rent(transactionAmount)){
+        if(item.deleteRemaing(transactionAmount)){
             item.save()     
             transactionItemShipsInstance.save flush:true
         }
         else {
             // alert
         }
-        // print transactionItemShipsInstance.transaction.id
+
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.created.message', args: [message(code: 'transactionItemShips.label', default: 'TransactionItemShips'), transactionItemShipsInstance.id])
@@ -58,12 +56,14 @@ class TransactionItemShipsController {
         }
     }
 
+    def oldAmount
+
     def edit(TransactionItemShips transactionItemShipsInstance) {
         // Add remaing bofore edit in Item class
         def item = Item.get(transactionItemShipsInstance.item.id)
-        def oldAmount = transactionItemShipsInstance.amount
-        item.addOldAmountBeforeEdit(oldAmount)
-        item.save()
+        oldAmount = transactionItemShipsInstance.amount
+        // item.addRemaing(oldAmount)
+        // item.save()
 
         transactionItemShipsInstance.save flush:true
 
@@ -83,20 +83,23 @@ class TransactionItemShipsController {
             return
         }
 
-        //update remaining value in Item class
+        //update remaining value in Item class        
         def item = Item.get(transactionItemShipsInstance.item.id)
+        item.addRemaing(oldAmount)
+        def startRemaining = item.getRemaing()
+
         def transactionAmount = transactionItemShipsInstance.amount
-        if(item.rent(transactionAmount)){
+        if(item.deleteRemaing(transactionAmount)){
             item.save()     
-            transactionItemShipsInstance.save flush:true
         }
         else {
             // alert
+            transactionItemShipsInstance.amount = oldAmount
+            item.setRemaining(startRemaining - oldAmount)
+            item.save()
         }
-        // item.rent(transactionAmount)
-        // item.save()
 
-        // transactionItemShipsInstance.save flush:true
+        transactionItemShipsInstance.save flush:true
 
         request.withFormat {
             form multipartForm {
@@ -120,7 +123,7 @@ class TransactionItemShipsController {
         def item = Item.get(transactionItemShipsInstance.item.id)
         def transactionAmount = transactionItemShipsInstance.amount
         print transactionAmount
-        if(item.addOldAmountBeforeEdit(transactionAmount)){
+        if(item.addRemaing(transactionAmount)){
             // item.save()     
             transactionItemShipsInstance.delete flush:true
         }

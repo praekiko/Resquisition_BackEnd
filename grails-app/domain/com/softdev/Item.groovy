@@ -29,8 +29,12 @@ class Item {
     	barcode
     }
 
-    public boolean rent(int transactionAmount){
-        if(this.remaining >= transactionAmount){
+    public boolean deleteRemaing(int transactionAmount){
+        if(transactionAmount == 0){
+            println "Amount = 0"
+            return false
+        }
+        else if(this.remaining >= transactionAmount){
             this.remaining -= transactionAmount   
             return true         
         }
@@ -40,8 +44,16 @@ class Item {
         }
     }
 
-    public boolean addOldAmountBeforeEdit(int oldAmount){
+    public boolean addRemaing(int oldAmount){
         this.remaining += oldAmount
         return true
+    }
+
+    public int getRemaing(){
+        return this.remaining
+    }
+
+    public void setRemaining(int setValue){
+        this.remaining = setValue
     }
 }

@@ -19,15 +19,29 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-lg-10">
-	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select"/>
+	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" optionValue="${{it?.barcode + ' คงเหลือ ' + it.remaining}}" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select"/>
+	%{-- <g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select"/>  --}%
+	<p></p>
+
 	</div>
 
 </div>
 
+
 <script type="text/javascript">
-$(document).ready(function() {
-	 $(".chosen-select").chosen(); 
-});
+	$(document).ready(function() {
+		 $(".chosen-select").chosen( 
+		 	); 
+	});
+
+	function displayVals() {
+		var itemValues = $("#item").val();
+		var selected = "${transactionItemShipsInstance}";
+		$("p").html( "<b>คงเหลือ:</b> " + itemValues + " ");
+	}
+	 
+	$("select").change(displayVals);
+	displayVals();
 </script>
 
 <div class="fieldcontain form-group ${hasErrors(bean: transactionItemShipsInstance, field: 'amount', 'error')} required">
@@ -36,7 +50,7 @@ $(document).ready(function() {
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-lg-10">
-	<g:field name="amount" type="number" class="form-control" value="${transactionItemShipsInstance.amount}" required=""/>
+	<g:field name="amount" type="number" class="form-control" value="${transactionItemShipsInstance.amount}" min="1" required=""/>
 	</div>
 
 </div>

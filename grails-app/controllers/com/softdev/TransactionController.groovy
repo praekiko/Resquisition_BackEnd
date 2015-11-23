@@ -91,7 +91,18 @@ class TransactionController {
             return
         }
         transactionInstance.transactionItemShips.each { transactionItemShipsInstance ->
-            transactionItemShipsInstance.delete flush:true
+            print transactionItemShipsInstance
+            //update remaining value in Item class
+            def item = Item.get(transactionItemShipsInstance.item.id)
+            def transactionAmount = transactionItemShipsInstance.amount
+            print transactionAmount
+            if(item.addRemaing(transactionAmount)){
+                // item.save()     
+                // transactionItemShipsInstance.delete flush:true
+            }
+            else {
+                // alert
+            }
         }
 
         transactionInstance.delete flush:true
