@@ -56,7 +56,7 @@
 
 </div>
 
-<div class="fieldcontain form-group ${hasErrors(bean: userInstance, field: 'type', 'error')} required">
+%{-- <div class="fieldcontain form-group ${hasErrors(bean: userInstance, field: 'type', 'error')} required">
 	<label for="type" class="col-lg-2 control-label">
 		<g:message code="user.type.label" default="Type" />
 		<span class="required-indicator">*</span>
@@ -65,5 +65,42 @@
 		<g:select id="type" name="type.id" from="${com.softdev.UserRole.list()}" optionKey="id" required="" value="${userInstance?.type?.id}" class="many-to-one form-control"/>
 	</div>
 
+</div> --}%
+
+<div style="display: none" class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountExpired', 'error')} ">
+	<label for="accountExpired">
+		<g:message code="user.accountExpired.label" default="Account Expired" />
+		
+	</label>
+	<g:checkBox name="accountExpired" value="${userInstance?.accountExpired}" />
+
 </div>
+
+<div style="display: none" class="fieldcontain ${hasErrors(bean: userInstance, field: 'accountLocked', 'error')} ">
+	<label for="accountLocked">
+		<g:message code="user.accountLocked.label" default="Account Locked" />
+		
+	</label>
+	<g:checkBox name="accountLocked" value="${userInstance?.accountLocked}" />
+
+</div>
+
+<div style="display: none" class="fieldcontain ${hasErrors(bean: userInstance, field: 'enabled', 'error')} ">
+	<label for="enabled">
+		<g:message code="user.enabled.label" default="Enabled" />
+		
+	</label>
+	<g:checkBox name="enabled" value="${userInstance?.enabled}" />
+
+</div>
+
+<div style="display: none" class="fieldcontain ${hasErrors(bean: userInstance, field: 'passwordExpired', 'error')} ">
+	<label for="passwordExpired">
+		<g:message code="user.passwordExpired.label" default="Password Expired" />
+		
+	</label>
+	<g:checkBox name="passwordExpired" value="${userInstance?.passwordExpired}" />
+
+</div>
+
 

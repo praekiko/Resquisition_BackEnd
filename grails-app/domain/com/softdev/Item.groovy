@@ -14,6 +14,7 @@ class Item {
         // id name: 'barcode'
         // id column: 'barcode', type: 'String'
         // id column: 'barcode'
+        transactionItemShips cascade: 'all-delete-orphan'
     }
 
     static constraints = {
@@ -52,6 +53,7 @@ class Item {
     public int getRemaing(){
         return this.remaining
     }
+
 
     public void setRemaining(int setValue){
         this.remaining = setValue

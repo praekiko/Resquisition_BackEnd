@@ -34,13 +34,15 @@
 					
 						<th><g:message code="transaction.user.label" default="User" /></th>
 					
-						<g:sortableColumn property="date" title="${message(code: 'transaction.date.label', default: 'Date')}" />
-					
-						<g:sortableColumn property="isApprove" title="${message(code: 'transaction.isApprove.label', default: 'Is Approve')}" />
-					
-						<th><g:message code="transaction.type.label" default="Type" /></th>
+						<g:sortableColumn property="date" title="${message(code: 'transaction.date.label', default: 'Date')}" />			
+										
+						%{-- <th><g:message code="transaction.type.label" default="Type" /></th> --}%
 					
 						<g:sortableColumn property="description" title="${message(code: 'transaction.description.label', default: 'Description')}" />
+
+						<g:sortableColumn property="isApprove" title="${message(code: 'transaction.isApprove.label', default: 'Is Approve')}" />
+
+						<th><g:message code="Delete" default="Delete" /></th>
 					
 					</tr>
 				</thead>
@@ -52,11 +54,26 @@
 					
 						<td>${fieldValue(bean: transactionInstance, field: "date")}</td>
 					
-						<td><g:formatBoolean boolean="${transactionInstance.isApprove}" /></td>
-					
-						<td>${fieldValue(bean: transactionInstance, field: "type")}</td>
+						%{-- <td>${fieldValue(bean: transactionInstance, field: "type")}</td> --}%
 					
 						<td>${fieldValue(bean: transactionInstance, field: "description")}</td>
+
+						%{-- <td><g:formatBoolean boolean="${transactionInstance.isApprove}" true="อนุญาติแล้ว" false="ยังไม่อนุญาติ"/></td> --}%
+						<td>
+							<g:if test="${transactionInstance.isApprove == false}">
+							     <g:link class="btn btn-default" action="updateIsApprove" resource="${transactionInstance}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'อนุญาติ?')}');">ยังไม่อนุญาติ</g:link>
+							</g:if>
+							<g:if test="${transactionInstance.isApprove == true}">
+							     <button class="btn btn-success" disabled="">อนุญาติแล้ว</button>
+							</g:if>
+						</td>
+
+						<td><g:form controller="transaction" action="delete" id="${transactionInstance.id}" method="DELETE">
+							%{-- ${itemInstance} --}%
+							<fieldset class="buttons">								
+								<g:actionSubmit class="delete btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+							</fieldset>
+						</g:form></td>
 					
 					</tr>
 				</g:each>

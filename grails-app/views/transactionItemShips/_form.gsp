@@ -1,5 +1,5 @@
 <%@ page import="com.softdev.TransactionItemShips" %>
-
+<%@ defaultCodec="none" %>
 
 
 <div class="fieldcontain form-group ${hasErrors(bean: transactionItemShipsInstance, field: 'transaction', 'error')} required">
@@ -19,8 +19,8 @@
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-lg-10">
-	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" optionValue="${{it?.barcode + ' คงเหลือ ' + it.remaining}}" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select"/>
-	%{-- <g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select"/>  --}%
+	%{-- <g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" optionValue="${{it?.barcode + ' คงเหลือ ' + it.remaining}}" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" /> --}%
+	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" />
 	<p></p>
 
 	</div>
@@ -28,21 +28,35 @@
 </div>
 
 
-<script type="text/javascript">
+<g:javascript>
 	$(document).ready(function() {
 		 $(".chosen-select").chosen( 
 		 	); 
 	});
 
+	var itemList = '${com.softdev.Item.list() as grails.converters.JSON}';
+	var itemListObj = jQuery.parseJSON( itemList );
+	var remainingArray = [];
+	$.each(itemListObj, function(index, value){
+		// console.log("INDEX: " + index + " Remaining: " + value.remaining);
+		remainingArray.push(value.remaining);
+	});
+	// console.log(remainingArray);
+	// alert(itemListObj[0].barcode)
+	// $("p").html( itemListObj.item);
+
 	function displayVals() {
-		var itemValues = $("#item").val();
-		var selected = "${transactionItemShipsInstance}";
-		$("p").html( "<b>คงเหลือ:</b> " + itemValues + " ");
+		var itemValue = $("#item").val();
+		// var currentRemaining = $("#item").data('item-remaining');
+		var currentRemaining = remainingArray[itemValue - 1];
+		// $("p").html( "<b>Remaining:</b> " + currentRemaining + typeof itemId);
+		// $("p").html( "<b>Remaining:</b> " + itemValue);
+		$("p").html( "<b>Remaining:</b> " + currentRemaining);
 	}
 	 
 	$("select").change(displayVals);
 	displayVals();
-</script>
+</g:javascript>
 
 <div class="fieldcontain form-group ${hasErrors(bean: transactionItemShipsInstance, field: 'amount', 'error')} required">
 	<label for="amount" class="col-lg-2 control-label">

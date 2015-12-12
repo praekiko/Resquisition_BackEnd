@@ -1,5 +1,7 @@
 
 <%@ page import="com.softdev.User" %>
+<%@ page import="com.softdev.UserRole" %>
+<%@ page import="com.softdev.Role" %>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -77,12 +79,80 @@
 					
 				</li>
 				</g:if>
-			
-				<g:if test="${userInstance?.type}">
+				%{-- ${userInstance.barcode}
+				${com.softdev.UserRole.list().user.barcode}  --}%
+				<li class="fieldcontain list-group-item">
+					<span id="type-label" class="property-label">Role</span>
+					
+						<span class="property-value pull-right show-userRole" aria-labelledby="type-label"></span>
+					
+				</li>
+				<g:javascript>
+					var currentUserBarcode = ${userInstance.barcode};
+					var userListFromUserRole = '${com.softdev.UserRole.list().user as grails.converters.JSON}';
+					userListFromUserRole = jQuery.parseJSON( userListFromUserRole );
+
+					var roleListFromUserRole = '${com.softdev.UserRole.list().role as grails.converters.JSON}';
+					roleListFromUserRole = jQuery.parseJSON( roleListFromUserRole );
+					for(var i = 0; i < userListFromUserRole.length; i++){
+						// console.log(userListFromUserRole[i].barcode);
+						// console.log(roleListFromUserRole[i].authority);
+						if(currentUserBarcode == userListFromUserRole[i].barcode){
+							var role = roleListFromUserRole[i].authority;
+							// console.log(role);
+							$("span.show-userRole").html(role);
+						}
+					}
+					
+
+
+				</g:javascript>
+				
+				%{-- <g:each var="userRole" in="${com.softdev.UserRole.list()}">
+					<g:if test="${userRole.user.barcode} == ${userInstance.barcode}">
+						${userRole.user.barcode}
+					</g:if>
+				</g:each> --}%
+				%{-- <g:if test="${userInstance?.type}">
 				<li class="fieldcontain list-group-item">
 					<span id="type-label" class="property-label"><g:message code="user.type.label" default="Type" /></span>
 					
 						<span class="property-value pull-right" aria-labelledby="type-label"><g:link controller="userRole" action="show" id="${userInstance?.type?.id}">${userInstance?.type?.encodeAsHTML()}</g:link></span>
+					
+				</li>
+				</g:if> --}%
+				<g:if test="${userInstance?.accountExpired}">
+				<li class="fieldcontain list-group-item">
+					<span id="accountExpired-label" class="property-label"><g:message code="user.accountExpired.label" default="Account Expired" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="accountExpired-label"><g:formatBoolean boolean="${userInstance?.accountExpired}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${userInstance?.accountLocked}">
+				<li class="fieldcontain list-group-item">
+					<span id="accountLocked-label" class="property-label"><g:message code="user.accountLocked.label" default="Account Locked" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="accountLocked-label"><g:formatBoolean boolean="${userInstance?.accountLocked}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${userInstance?.enabled}">
+				<li class="fieldcontain list-group-item">
+					<span id="enabled-label" class="property-label"><g:message code="user.enabled.label" default="Enabled" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="enabled-label"><g:formatBoolean boolean="${userInstance?.enabled}" /></span>
+					
+				</li>
+				</g:if>
+			
+				<g:if test="${userInstance?.passwordExpired}">
+				<li class="fieldcontain list-group-item">
+					<span id="passwordExpired-label" class="property-label"><g:message code="user.passwordExpired.label" default="Password Expired" /></span>
+					
+						<span class="property-value pull-right" aria-labelledby="passwordExpired-label"><g:formatBoolean boolean="${userInstance?.passwordExpired}" /></span>
 					
 				</li>
 				</g:if>

@@ -60,14 +60,14 @@
 				</li>
 				</g:if>
 			
-				<g:if test="${transactionInstance?.type}">
+				%{-- <g:if test="${transactionInstance?.type}">
 				<li class="fieldcontain list-group-item">
 					<span id="type-label" class="property-label"><g:message code="transaction.type.label" default="Type" /></span>
 					
 						<span class="property-value pull-right" aria-labelledby="type-label"><g:link controller="transactionType" action="show" id="${transactionInstance?.type?.id}">${transactionInstance?.type?.encodeAsHTML()}</g:link></span>
 					
 				</li>
-				</g:if>
+				</g:if> --}%
 			
 				<g:if test="${transactionInstance?.description}">
 				<li class="fieldcontain list-group-item">

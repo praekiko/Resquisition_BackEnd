@@ -75,7 +75,7 @@ class ItemController {
 
     @Transactional
     def delete(Item itemInstance) {
-
+        print itemInstance
         if (itemInstance == null) {
             notFound()
             return

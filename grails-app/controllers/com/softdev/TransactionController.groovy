@@ -25,15 +25,6 @@ class TransactionController {
 
     @Transactional
     def save(Transaction transactionInstance) {
-        print params.user
-        def result = User.findByUsername(params.user.username)
-        // print "find by" + result.id
-        // def userBarcode = params.user.barcode
-        // def result = User.findByUsername(params.user.barcode as String)
-        // print result
-        //transactionInstance.user.username = params.user.id
-        transactionInstance.user.id = result.id
-        print transactionInstance
         if (transactionInstance == null) {
             notFound()
             return
@@ -78,6 +69,39 @@ class TransactionController {
             form multipartForm {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'Transaction.label', default: 'Transaction'), transactionInstance.id])
                 redirect transactionInstance
+            }
+            '*'{ respond transactionInstance, [status: OK] }
+        }
+    }
+
+    def updateIsApprove(Transaction transactionInstance) {
+
+        if (transactionInstance == null) {
+            notFound()
+            return
+        }
+
+        if (transactionInstance.hasErrors()) {
+            respond transactionInstance.errors, view:'edit'
+            return
+        }
+
+        print transactionInstance.isApprove
+        if(transactionInstance.isApprove == false){
+            transactionInstance.isApprove = true
+            transactionInstance.save flush:true
+            redirect action: "index"
+            return
+        }
+
+        // transactionInstance.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'Transaction.label', default: 'Transaction'), transactionInstance.id])
+                // redirect transactionInstance
+                // redirect (action: "index", params: [max: 100])
+                // redirect action:"index", method:"GET"
             }
             '*'{ respond transactionInstance, [status: OK] }
         }

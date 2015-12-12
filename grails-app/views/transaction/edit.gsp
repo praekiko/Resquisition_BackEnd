@@ -39,6 +39,7 @@
 				<g:hiddenField name="version" value="${transactionInstance?.version}" />
 				<fieldset class="form">
 					<g:render template="form"/>
+					
 				</fieldset>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save btn btn-warning" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />

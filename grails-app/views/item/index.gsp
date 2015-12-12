@@ -41,6 +41,8 @@
 						<g:sortableColumn property="remaining" title="${message(code: 'item.remaining.label', default: 'Remaining')}" />
 					
 						<g:sortableColumn property="description" title="${message(code: 'item.description.label', default: 'Description')}" />
+
+						<th><g:message code="Delete" default="Delete" /></th>
 					
 					</tr>
 				</thead>
@@ -57,6 +59,13 @@
 						<td>${fieldValue(bean: itemInstance, field: "remaining")}</td>
 					
 						<td>${fieldValue(bean: itemInstance, field: "description")}</td>
+
+						<td><g:form controller="item" action="delete" id="${itemInstance.id}" method="DELETE">
+							%{-- ${itemInstance} --}%
+							<fieldset class="buttons">								
+								<g:actionSubmit class="delete btn btn-danger" action="delete" value="${message(code: 'default.button.delete.label', default: 'Delete')}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');" />
+							</fieldset>
+						</g:form></td>
 					
 					</tr>
 				</g:each>

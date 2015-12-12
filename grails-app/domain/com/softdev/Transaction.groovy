@@ -3,10 +3,9 @@ package com.softdev
 import org.joda.time.LocalDateTime
 
 class Transaction {
-	// int id
 	LocalDateTime date
 	Boolean isApprove
-	TransactionType type
+	// TransactionType type
     String description
 
 	User user // one user at time
@@ -14,12 +13,11 @@ class Transaction {
 
 
     static constraints = {
-    	// id nullable: false
     	user nullable: false
     	date nullable: false
     	isApprove nullable: false
-    	type nullable: false 
-        description blank: true, maxSize: 5000
+    	// type nullable: false 
+        description nullable: true, maxSize: 5000
     }
 
     static mapping = {
@@ -27,6 +25,7 @@ class Transaction {
     }
 
     public String toString() { 
-    	"ID $id : $user [$type]"
+        // "ID $id : $user [$type]"
+    	"ID $id : $user"
     }
 }

@@ -15,21 +15,20 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         %{-- <li class="active"><a href="#">Link</a></li> --}%
-          <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
+          %{-- <g:each var="c" in="${grailsApplication.controllerClasses.sort { it.fullName } }">
             <li><g:link controller="${c.logicalPropertyName}">${c.name}</g:link></li>
-          </g:each>
-        
+          </g:each> --}%
+        <li><a href="${createLink(uri: '/transaction')}">ข้อมูลการเบิก</a></li>
+        <li><a href="${createLink(uri: '/item')}">ข้อมูลอุปกรณ์</a></li>
+        <li><a href="${createLink(uri: '/user')}">ข้อมูล User</a></li>
+        <li><a href="${createLink(uri: '/transactionItemShips')}">Graph</a></li>
         
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        %{-- <form class="navbar-form navbar-left" role="search">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search">
-          </div>
-          <button type="submit" class="btn btn-default">Submit</button>
-        </form> --}%
-        <li><a href="#">Logout</a></li>
+        
+
+        <li><a href="${createLink(uri: '/logout')}" class="btn btn-default">Logout</a></li>
         
       </ul>
     </div><!-- /.navbar-collapse -->

@@ -42,7 +42,7 @@
 					
 						<g:sortableColumn property="telNum" title="${message(code: 'user.telNum.label', default: 'Tel Num')}" />
 					
-						<th><g:message code="user.type.label" default="Type" /></th>
+						<g:sortableColumn property="accountExpired" title="${message(code: 'user.accountExpired.label', default: 'Account Expired')}" />
 					
 					</tr>
 				</thead>
@@ -60,7 +60,7 @@
 					
 						<td>${fieldValue(bean: userInstance, field: "telNum")}</td>
 					
-						<td>${fieldValue(bean: userInstance, field: "type")}</td>
+						<td><g:formatBoolean boolean="${userInstance.accountExpired}" /></td>
 					
 					</tr>
 				</g:each>

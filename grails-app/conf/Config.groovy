@@ -144,3 +144,47 @@ grails.gorm.default.mapping = {
     "user-type" type: org.jadira.usertype.dateandtime.joda.PersistentYearMonthDay, class: org.joda.time.YearMonthDay
     "user-type" type: org.jadira.usertype.dateandtime.joda.PersistentYears, class: org.joda.time.Years
 }
+
+// Added by the Spring Security Core plugin:
+grails.plugin.springsecurity.userLookup.userDomainClassName = 'com.softdev.User'
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'com.softdev.UserRole'
+grails.plugin.springsecurity.authority.className = 'com.softdev.Role'
+// grails.plugin.springsecurity.controllerAnnotations.staticRules = [
+//  '/':                ['permitAll'],
+//  '/index':           ['permitAll'],
+//  '/index.gsp':       ['permitAll'],
+//  '/assets/**':       ['permitAll'],
+//  '/**/js/**':        ['permitAll'],
+//  '/**/css/**':       ['permitAll'],
+//  '/**/images/**':    ['permitAll'],
+//  '/**/favicon.ico':  ['permitAll']
+// ]
+grails.plugin.springsecurity.logout.postOnly = false
+grails.plugin.springsecurity.securityConfigType = "InterceptUrlMap"
+grails.plugin.springsecurity.interceptUrlMap = [
+   '/':                ['ROLE_ADMIN', 'ROLE_USER'],
+   '/error':           ['ROLE_ADMIN'],
+   '/index':           ['ROLE_ADMIN', 'ROLE_USER'],
+   '/index.gsp':       ['ROLE_ADMIN', 'ROLE_USER'],
+   '/shutdown':        ['ROLE_ADMIN'],
+   '/assets/**':       ['ROLE_ADMIN'],
+   '/**/js/**':        ['ROLE_ADMIN'],
+   '/**/css/**':       ['ROLE_ADMIN'],
+   '/**/images/**':    ['ROLE_ADMIN'],
+   '/**/favicon.ico':  ['ROLE_ADMIN'],
+   '/login':           ['permitAll'],
+   '/login/**':        ['permitAll'],
+   '/logout':          ['permitAll'],
+   '/logout/**':       ['permitAll'],
+   '/item/**':                        ['ROLE_ADMIN'],
+   '/role/**':                        ['ROLE_ADMIN'],
+   '/transaction/**':                 ['ROLE_ADMIN', 'ROLE_USER'],
+   '/transactionItemShips/**':        ['ROLE_ADMIN'],
+   '/user/**':                        ['ROLE_ADMIN'],
+   '/userRole/**':                    ['ROLE_ADMIN'],
+   '/transactionType/**':             ['ROLE_ADMIN'],
+   '/console/**':                     ['ROLE_ADMIN'],
+   '/mobile/**':                      ['permitAll'],
+   '/plugins/**':                     ['ROLE_ADMIN']
+]
+

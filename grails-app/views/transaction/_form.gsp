@@ -58,25 +58,43 @@ $(document).ready(function() {
 
 </div>
 
-<div class="fieldcontain form-group ${hasErrors(bean: transactionInstance, field: 'type', 'error')} required">
+%{-- <div class="fieldcontain form-group ${hasErrors(bean: transactionInstance, field: 'type', 'error')} required">
 	<label for="type" class="col-lg-2 control-label">
 		<g:message code="transaction.type.label" default="Type" />
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-lg-10">
-	<g:select id="type" name="type.id" from="${com.softdev.TransactionType.list()}" optionKey="id" required="" value="${transactionInstance?.type?.id}" class="many-to-one form-control"/>
+	<g:select id="type" name="type.id" from="${com.softdev.TransactionType.list()}" optionKey="id" required="" value="${transactionInstance?.type?.id}" class="many-to-one form-control select-type"/>
 	</div>
 
-</div>
+</div> 
 
+<p></p>
+ 
+<script>
+	$(".select-type")
+	  	.change(function () {
+		    var typeIdselected;
+		    $( ".select-type option:selected" ).each(function() {
+		      	typeIdselected = $(this).val();
+		      	if(typeIdselected == 1){ //เบิก
+		      		$("#description").hide();
+		      	}
+		      	else $("#description").show();
+		    });
+		    $("p").text( typeIdselected );
+	  	})
+	  .change();
+	 
+</script>--}%
 
-<div class="fieldcontain form-group ${hasErrors(bean: transactionInstance, field: 'description', 'error')} required">
+<div id="description" style="display: none" class="fieldcontain form-group ${hasErrors(bean: transactionInstance, field: 'description', 'error')} required">
 	<label for="description" class="col-lg-2 control-label">
 		<g:message code="transaction.description.label" default="Description" />
 		<span class="required-indicator">*</span>
 	</label>
 	<div class="col-lg-10">
-	<g:textArea name="description" cols="40" rows="5" maxlength="5000" required="" value="${transactionInstance?.description}" class="form-control"/>
+	<g:textArea name="description" cols="40" rows="5" maxlength="5000" value="${transactionInstance?.description}" class="form-control"/>
 	</div>
 
 </div>
@@ -110,4 +128,6 @@ $(document).ready(function() {
 
 
 </div>
+
+
 

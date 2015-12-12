@@ -4,18 +4,40 @@ import org.joda.time.LocalDateTime
 class BootStrap {
 
     def init = { servletContext ->
-        new UserRole(title: 'Admin').save()
-    	new UserRole(title: 'Teacher').save()
-    	new UserRole(title: 'Maid').save()
-    	new UserRole(title: 'Student').save()
+        def adminRole = new Role('ROLE_ADMIN').save()
+        def userRole = new Role('ROLE_USER').save()
 
-    	new User(name: 'นางสาวลลิตวดี ดำยศ', telNum: '0805415438', barcode: '5610110454', username: 'prae', password: '1234', type: UserRole.findByTitle('Admin')).save()
-    	new User(name: 'นายจริย์วัฒน์ หิรัญวิริยะ ', telNum: '0805414327', barcode: '5610110065', username: 'tul', password: '1234', type: UserRole.findByTitle('Student')).save()
-    	new User(name: 'นายวรโชติ เสถียรวงศ์นุษา', telNum: '0805214327', barcode: '5610110467', username: 'soon', password: '1234', type: UserRole.findByTitle('Maid')).save()
-    	new User(name: 'นางสาววาสิฏฐี ลีละศุภกุล', telNum: '0802114327', barcode: '5610110493', username: 'aun', password: '1234', type: UserRole.findByTitle('Teacher')).save()
-        new User(name: 'นางสาววิลาสินี นวลงาม ', telNum: '0800093270', barcode: '5610110503', username: 'prae2', password: '1234', type: UserRole.findByTitle('Student')).save()
-    	new User(name: 'Joi ', telNum: '0800093270', barcode: '5610110456', password: '1234', username: 'joi', type: UserRole.findByTitle('Student')).save()
-    	
+        // def testUser = new User('admin', '1234').save()
+        // def adminUser = new User('admin', '1234').save()
+        def testUser1 = new User(name: 'นางสาวลลิตวดี ดำยศ', telNum: '0805415438', barcode: '5610110454', username: 'prae', password: '1234').save()
+        def testUser2 = new User(name: 'นายจริย์วัฒน์ หิรัญวิริยะ ', telNum: '0805414327', barcode: '5610110065', username: 'tul', password: '1234').save()
+        def testUser3 = new User(name: 'นายวรโชติ เสถียรวงศ์นุษา', telNum: '0805214327', barcode: '5610110467', username: 'soon', password: '1234').save()
+        def testUser4 = new User(name: 'นางสาววาสิฏฐี ลีละศุภกุล', telNum: '0802114327', barcode: '5610110493', username: 'aun', password: '1234').save()
+        def testUser5 = new User(name: 'นางสาววิลาสินี นวลงาม ', telNum: '0800093270', barcode: '5610110503', username: 'prae2', password: '1234').save()
+        def testUser6 = new User(name: 'Joi ', telNum: '0800093270', barcode: '5610110456', password: '1234', username: 'joi').save()
+
+        UserRole.create testUser1, adminRole, true
+        UserRole.create testUser2, userRole, true
+        UserRole.create testUser3, userRole, true
+        UserRole.create testUser4, userRole, true
+        UserRole.create testUser5, userRole, true
+        UserRole.create testUser6, userRole, true
+
+        assert User.count() == 6
+        assert Role.count() == 2
+        assert UserRole.count() == 6
+     //    new UserRole(title: 'Admin').save()
+        // new UserRole(title: 'Teacher').save()
+        // new UserRole(title: 'Maid').save()
+        // new UserRole(title: 'Student').save()
+
+        // new User(name: 'นางสาวลลิตวดี ดำยศ', telNum: '0805415438', barcode: '5610110454', username: 'prae', password: '1234', type: UserRole.findByTitle('Admin')).save()
+        // new User(name: 'นายจริย์วัฒน์ หิรัญวิริยะ ', telNum: '0805414327', barcode: '5610110065', username: 'tul', password: '1234', type: UserRole.findByTitle('Student')).save()
+        // new User(name: 'นายวรโชติ เสถียรวงศ์นุษา', telNum: '0805214327', barcode: '5610110467', username: 'soon', password: '1234', type: UserRole.findByTitle('Maid')).save()
+        // new User(name: 'นางสาววาสิฏฐี ลีละศุภกุล', telNum: '0802114327', barcode: '5610110493', username: 'aun', password: '1234', type: UserRole.findByTitle('Teacher')).save()
+     //    new User(name: 'นางสาววิลาสินี นวลงาม ', telNum: '0800093270', barcode: '5610110503', username: 'prae2', password: '1234', type: UserRole.findByTitle('Student')).save()
+        // new User(name: 'Joi ', telNum: '0800093270', barcode: '5610110456', password: '1234', username: 'joi', type: UserRole.findByTitle('Student')).save()
+        
 
     	def i1 = new Item(title: 'ปากกาไวท์บอร์ท ดำ', barcode: 'ITEM0001', remaining: 10, unit: 'ด้าม', description: 'รายละเอียด').save()
     	def i2 = new Item(title: 'ปากกาไวท์บอร์ท น้ำเงิน', barcode: 'ITEM0002', remaining: 5, unit: 'ด้าม', description: 'รายละเอียด').save()
@@ -44,17 +66,17 @@ class BootStrap {
     	// transaction
     	def t1 = new Transaction(date: new Date('11/21/2015'), 
     							 isApprove: false, 
-    							 type: TransactionType.findByTitle('เบิก'),
+    							 // type: TransactionType.findByTitle('เบิก'),
     							 user: User.findByBarcode('5610110454'),
                                  description: 'อธิบายการเบิกของ 5610110454').save()
     	def t2 = new Transaction(date: new LocalDateTime(), 
     							 isApprove: true, 
-    							 type: TransactionType.findByTitle('เบิก'),
+    							 // type: TransactionType.findByTitle('เบิก'),
     							 user: User.findByBarcode('5610110503'),
                                  description: 'อธิบายการเบิกของ 5610110503').save()
     	def t3 = new Transaction(date: new Date('12/10/2015'), 
     							 isApprove: true, 
-    							 type: TransactionType.findByTitle('ยืม'),
+    							 // type: TransactionType.findByTitle('ยืม'),
     							 user: User.findByBarcode('5610110467'),
                                  description: 'อธิบายการยืมของ 5610110467').save()
     	
