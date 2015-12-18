@@ -5,7 +5,7 @@ package com.softdev
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 class TransactionItemShipsController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
