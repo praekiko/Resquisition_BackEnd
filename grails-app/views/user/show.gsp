@@ -84,9 +84,15 @@
 				<li class="fieldcontain list-group-item">
 					<span id="type-label" class="property-label">Role</span>
 					
-						<span class="property-value pull-right show-userRole" aria-labelledby="type-label"></span>
+						<span class="property-value pull-right show-userRole" aria-labelledby="type-label">
+							
+						</span>
+
 					
 				</li>
+				<sec:ifAnyGranted roles='ROLE_USER'>
+					 You're a user
+				</sec:ifAnyGranted>
 				<g:javascript>
 					var currentUserBarcode = ${userInstance.barcode};
 					var userListFromUserRole = '${com.softdev.UserRole.list().user as grails.converters.JSON}';

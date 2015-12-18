@@ -28,7 +28,8 @@
 				<li><g:link class="create btn" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			  </ul>
 			</div>
-			<p></p>
+			%{-- Graph --}%
+			<div id="dual_y_div" style="width: 100%; height: 500px;"></div>
 			%{-- Table --}%
 			<table class="table table-striped table-hover">
 				<thead>
@@ -73,22 +74,33 @@
 %{-- Graph --}%
 		    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		    
-		    <script type="text/javascript">
-			    var itemName = '${com.softdev.TransactionItemShips.list().item}';
-			    var itemAmount = '${com.softdev.TransactionItemShips.list().amount}';
-		    	$("p").html( itemName + '<br>' + itemAmount);
+		    <g:javascript>
+			    var itemBarcode = '${com.softdev.TransactionItemShips.list().item as grails.converters.JSON}';
+			    itemBarcode = jQuery.parseJSON(itemBarcode);
+			    var itemAmount = '${com.softdev.TransactionItemShips.list().amount as grails.converters.JSON}';
+			    itemAmount = jQuery.parseJSON(itemAmount);
+
+			    var shipsArray = [];
+
+			    for(var i = 0; i < itemBarcode.length; i++){
+			    	// console.log(itemBarcode[i].barcode + '++++' + itemAmount[i]);
+			    	shipsArray.push([itemBarcode[i].barcode, itemAmount[i]]);
+
+			    }
+
 			    google.load("visualization", "1.1", {packages:["bar"]});
 			    google.setOnLoadCallback(drawStuff);
-				var transactionItems = [
-						          ['ITEM0001', 1],
-						          ['ITEM0005', 2],
-						          ['ITEM0004', 5],
-						          ['ITEM0002', 3],
-						          ['ITEM0005', 4],
-						          ['ITEM0001', 8],
-						          ['ITEM0002', 1],
+				// var transactionItems = [
+				// 		          ['ITEM0001', 1],
+				// 		          ['ITEM0005', 2],
+				// 		          ['ITEM0004', 5],
+				// 		          ['ITEM0002', 3],
+				// 		          ['ITEM0005', 4],
+				// 		          ['ITEM0001', 8],
+				// 		          ['ITEM0002', 1],
 						     
-						        ];
+				// 		        ];
+				var transactionItems = shipsArray;
 
 						        var total = 0;
 								var myTotal = [];  // Variable to hold your total
@@ -172,9 +184,9 @@
 		      chart.draw(data, options);
 		    };
 
-		    </script>
+		    </g:javascript>
 
-		    <div id="dual_y_div" style="width: 100%; height: 500px;"></div>
+		    
 
 
 		

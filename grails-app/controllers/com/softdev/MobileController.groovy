@@ -74,7 +74,7 @@ class MobileController {
         def item = Item.findByBarcode(params.item.barcode as String)
         transactionItemShipsInstance.item.id = item.id
         def transactionAmount = transactionItemShipsInstance.amount
-        if(item.rent(transactionAmount)){
+        if(item.deleteRemaing(transactionAmount)){
             item.save()     
             transactionItemShipsInstance.save flush:true
         }
@@ -92,6 +92,65 @@ class MobileController {
         }
     }
 
+    def oldAmount
+
+    def editItem(TransactionItemShips transactionItemShipsInstance) {
+        // Add remaing bofore edit in Item class
+        def item = Item.get(transactionItemShipsInstance.item.id)
+        oldAmount = transactionItemShipsInstance.amount
+        // item.addRemaing(oldAmount)
+        // item.save()
+
+        transactionItemShipsInstance.save flush:true
+
+        respond transactionItemShipsInstance
+    }
+
+    def updateItem(TransactionItemShips transactionItemShipsInstance) {   
+
+        if (transactionItemShipsInstance == null) {
+            notFound()
+            return
+        }
+
+        if (transactionItemShipsInstance.hasErrors()) {
+            respond transactionItemShipsInstance.errors, view:'edit'
+            return
+        }
+
+        //update remaining value in Item class  
+        def item = Item.findByBarcode(params.item.barcode as String)
+        transactionItemShipsInstance.item.id = item.id 
+        println transactionItemShipsInstance     
+        // def item = Item.get(transactionItemShipsInstance.item.id)
+        item.addRemaing(oldAmount)
+        def startRemaining = item.getRemaing()
+        println "startRemaining " + startRemaining     
+
+        def transactionAmount = transactionItemShipsInstance.amount
+        println "transactionAmount " + transactionAmount
+        if(item.deleteRemaing(transactionAmount)){
+            item.save()     
+        }
+        else {
+            // alert
+            transactionItemShipsInstance.amount = oldAmount
+            item.setRemaining(startRemaining - oldAmount)
+            item.save()
+        }
+
+        transactionItemShipsInstance.save flush:true
+
+        request.withFormat {
+            form multipartForm {
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'TransactionItemShips.label', default: 'TransactionItemShips'), transactionItemShipsInstance.id])
+                // redirect transactionItemShipsInstance
+                redirect (action: "edit", id: transactionItemShipsInstance.transaction.id)
+            }
+            '*'{ respond transactionItemShipsInstance, [status: OK] }
+        }
+    }
+
     def edit(Transaction transactionInstance) {
     	// print "Edit from Mobile"
     	// print params
@@ -103,7 +162,7 @@ class MobileController {
     def update(Transaction transactionInstance) {
         // print params
         // print "-------"
-        println 'asdlkfjsldkfjlk'
+        println 'update action'
         print transactionInstance
         if (transactionInstance == null) {
             notFound()

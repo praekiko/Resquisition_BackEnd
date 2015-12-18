@@ -9,7 +9,7 @@
 <body>
 	<div class="well bs-component">
     <g:form action="save" class="form-horizontal">
-
+    	
         <legend class="text-success">Create Transaction</legend>
         <g:hasErrors bean="${transactionInstance}">
 		<ul class="errors" role="alert">

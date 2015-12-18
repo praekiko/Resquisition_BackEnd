@@ -20,8 +20,7 @@
 	</label>
 	<div class="col-lg-10">
 	%{-- <g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" optionValue="${{it?.barcode + ' คงเหลือ ' + it.remaining}}" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" /> --}%
-	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" />
-	<p></p>
+	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" />	<p id="show-remaining"></p>
 
 	</div>
 
@@ -51,7 +50,7 @@
 		var currentRemaining = remainingArray[itemValue - 1];
 		// $("p").html( "<b>Remaining:</b> " + currentRemaining + typeof itemId);
 		// $("p").html( "<b>Remaining:</b> " + itemValue);
-		$("p").html( "<b>Remaining:</b> " + currentRemaining);
+		$("p#show-remaining").html( "<b>Remaining:</b> " + currentRemaining);
 	}
 	 
 	$("select").change(displayVals);

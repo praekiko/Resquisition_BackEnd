@@ -1,4 +1,5 @@
 <%@ page import="com.softdev.Transaction" %>
+<%@ page import="com.softdev.TransactionItemShips" %>
 <%@ page import="org.joda.time.LocalDateTime" %>
 
 
@@ -88,7 +89,7 @@ $(document).ready(function() {
 	 
 </script>--}%
 
-<div id="description" style="display: none" class="fieldcontain form-group ${hasErrors(bean: transactionInstance, field: 'description', 'error')} required">
+<div id="description" class="fieldcontain form-group ${hasErrors(bean: transactionInstance, field: 'description', 'error')} required">
 	<label for="description" class="col-lg-2 control-label">
 		<g:message code="transaction.description.label" default="Description" />
 		<span class="required-indicator">*</span>
@@ -110,17 +111,26 @@ $(document).ready(function() {
 	
 	<ul class="one-to-many"><br>
 	<g:each in="${transactionInstance?.transactionItemShips?}" var="t">
-	    <li><g:link controller="transactionItemShips" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link></li>
-	</g:each><br>
+	    <li>
+	    	
+	    		<g:link controller="transactionItemShips" action="show" id="${t.id}">${t?.encodeAsHTML()}</g:link>
+				
+				%{-- <g:link class="edit btn btn-danger btn-xs" controller="transactionItemShips" action="delete" id="${t.id}" method="DELETE" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'Are you sure?')}');">X</g:link>--}%
+
+	    </li><br>
+
+	</g:each>
+
 	<li class="add">
-	<g:link controller="transactionItemShips" action="create"
+	<g:link class=" btn btn-primary" controller="transactionItemShips" action="create"
 	 		params="['transaction.id': transactionInstance?.id]">
-	 	${message(
+	 	%{--${message(
 	 				code: 'default.add.label', 
 		 			args: [message(code: 'transactionItemShips.label', 
 		 			default: 'TransactionItemShips')]
 				)
-		}
+		} --}%
+		Add More Item
 	</g:link>
 	</li>
 	</ul>

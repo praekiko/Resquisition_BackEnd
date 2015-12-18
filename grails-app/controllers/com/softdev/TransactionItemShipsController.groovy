@@ -113,6 +113,8 @@ class TransactionItemShipsController {
 
     @Transactional
     def delete(TransactionItemShips transactionItemShipsInstance) {
+        // println "this is delect action from TIShips"
+        println transactionItemShipsInstance
 
         if (transactionItemShipsInstance == null) {
             notFound()

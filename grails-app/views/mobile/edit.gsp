@@ -24,7 +24,6 @@
 				<br>
 				<fieldset class="buttons">
 					<g:actionSubmit class="save btn btn-success btn-lg btn-block" action="update" value="${message(code: 'default.button.update.label', default: 'Update')}" />
-					${transactionInstance}
 				</fieldset>
 				</div>
 			</g:form>
