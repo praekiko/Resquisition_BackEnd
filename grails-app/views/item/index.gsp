@@ -26,8 +26,27 @@
 			  <ul class="pager">
 				<li><a class="home btn" href="${createLink(uri: '/')}"><span aria-hidden="true">&laquo;</span> <g:message code="default.home.label"/></a></li>
 				<li><g:link class="create btn" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
-			  </ul>
+			  </ul>		  
+
 			</div>
+
+
+			<g:form class="form-inline pull-right" method="POST">
+			  <g:select id="item" name="itemBarcode" from="${com.softdev.Item.list()}" optionKey="barcode" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" noSelection="['' :'Search']" value="${params.long("itemBarcode")}"/>
+			  <g:actionSubmit value="Search" action="index" class="btn btn-primary "/>
+				%{-- <g:link class="btn btn-warning" action="index" params="[item.barcode: '']">
+			       	Clear
+			    </g:link> --}%
+			  </g:form>
+			  %{-- ${params} --}%
+			
+			<script type="text/javascript">
+			 	$(".chosen-select").chosen({
+			 		allow_single_deselect: true,
+					display_selected_options:false,
+					search_contains : true,
+			 		no_results_text: "Oops, nothing found!"}); 
+			</script>
 			<table class="table table-striped table-hover">
 			<thead>
 					<tr>

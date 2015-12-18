@@ -20,7 +20,7 @@
 	</label>
 	<div class="col-lg-10">
 	%{-- <g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" optionValue="${{it?.barcode + ' คงเหลือ ' + it.remaining}}" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" /> --}%
-	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" />	<p id="show-remaining"></p>
+	<g:select id="item" name="item.id" from="${com.softdev.Item.list()}" optionKey="id" required="" optionValue="${{it?.barcode + ' : ' + it.title}}" value="${transactionItemShipsInstance?.item?.id}" class="many-to-one form-control chosen-select" />	<p id="show-remaining"></p>
 
 	</div>
 
@@ -29,8 +29,11 @@
 
 <g:javascript>
 	$(document).ready(function() {
-		 $(".chosen-select").chosen( 
-		 	); 
+		 $(".chosen-select").chosen( {
+			 		allow_single_deselect: true,
+					display_selected_options:false,
+					search_contains : true,
+			 		no_results_text: "Oops, nothing found!"}); 
 	});
 
 	var itemList = '${com.softdev.Item.list() as grails.converters.JSON}';

@@ -10,12 +10,12 @@
 	}
 
 	#login .inner {
-		width: 340px;
+		width: 50%;
 		padding-bottom: 6px;
 		margin: 60px auto;
 		text-align: left;
 		border: 1px solid #aab;
-		background-color: #f0f0fa;
+		background-color: #f0f0f0;
 		-moz-box-shadow: 2px 2px 2px #eee;
 		-webkit-box-shadow: 2px 2px 2px #eee;
 		-khtml-box-shadow: 2px 2px 2px #eee;
@@ -41,7 +41,7 @@
 	}
 
 	#login .inner .cssform input[type='text'] {
-		width: 120px;
+		width: 80%;
 	}
 
 	#login .inner .cssform label {
@@ -75,7 +75,7 @@
 	}
 
 	#login .inner .text_ {
-		width: 120px;
+		width: 80%;
 	}
 
 	#login .inner .chk {
@@ -85,24 +85,30 @@
 </head>
 
 <body>
-<div id='login'>
-	<div class='inner'>
-		<div class='fheader'><g:message code="springSecurity.login.header"/></div>
+
+<div id='login' >
+	%{-- <div class='inner panel panel-default'> --}%
+	<div align="center" class="panel panel-default" style="width: 400px; margin: auto;">
+		%{-- <div class='fheader'><g:message code="springSecurity.login.header"/></div> --}%
+		<div class="panel-heading"><h3>Admin Login</h3></div>
 
 		<g:if test='${flash.message}'>
 			<div class='login_message'>${flash.message}</div>
 		</g:if>
-
-		<form action='${postUrl}' method='POST' id='loginForm' class='cssform' autocomplete='off'>
-			<p>
-				<label for='username'><g:message code="springSecurity.login.username.label"/>:</label>
-				<input type='text' class='text_' name='j_username' id='username'/>
-			</p>
-
-			<p>
-				<label for='password'><g:message code="springSecurity.login.password.label"/>:</label>
-				<input type='password' class='text_' name='j_password' id='password'/>
-			</p>
+		<div class="panel-body">
+		<form action='${postUrl}' method='POST' id='loginForm' class="form-horizontal" autocomplete='off'>
+			<div class="form-group">
+				<label for='username' class="col-sm-2 control-label"><g:message code="springSecurity.login.username.label"/>:</label>
+				<div class="col-sm-10">
+				<input type='text' class='form-control text_' name='j_username' id='username' placeholder="username"/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for='password' class="col-sm-2 control-label"><g:message code="springSecurity.login.password.label"/>:</label>
+				<div class="col-sm-10">
+				<input type='password' class='form-control text_' name='j_password' id='password' placeholder="password"/>
+				</div>
+			</div>
 
 			<p id="remember_me_holder">
 				<input type='checkbox' class='chk' name='${rememberMeParameter}' id='remember_me' <g:if test='${hasCookie}'>checked='checked'</g:if>/>
@@ -110,11 +116,17 @@
 			</p>
 
 			<p>
-				<input type='submit' id="submit" value='${message(code: "springSecurity.login.button")}'/>
+				<input type='submit' class="btn btn-primary" id="submit" value='${message(code: "springSecurity.login.button")}'/>
 			</p>
 		</form>
 	</div>
 </div>
+<br>
+%{-- <div align="center">
+	<g:link class="btn btn-success" style="width: 350px;" href="/Requisition/mobile">Create a Transaction</g:link>
+</div> --}%
+
+
 <script type='text/javascript'>
 (function() {
 	document.forms['loginForm'].elements['j_username'].focus();

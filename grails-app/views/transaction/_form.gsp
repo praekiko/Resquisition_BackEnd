@@ -38,7 +38,11 @@ $(document).ready(function() {
 				sideBySide: true	};
 			$(elem).datetimepicker(opts);
 		});
-	 $(".chosen-select").chosen(); 
+	 $(".chosen-select").chosen({
+			 		allow_single_deselect: true,
+					display_selected_options:false,
+					search_contains : true,
+			 		no_results_text: "Oops, nothing found!"}); 
 });
 </script>
 

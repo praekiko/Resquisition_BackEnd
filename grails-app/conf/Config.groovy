@@ -185,6 +185,7 @@ grails.plugin.springsecurity.interceptUrlMap = [
    '/transactionType/**':             ['ROLE_ADMIN'],
    '/console/**':                     ['ROLE_ADMIN'],
    '/mobile/**':                      ['permitAll'],
-   '/plugins/**':                     ['ROLE_ADMIN']
+   '/plugins/**':                     ['ROLE_ADMIN'],
+   '/dbconsole/**':                     ['ROLE_ADMIN']
 ]
 

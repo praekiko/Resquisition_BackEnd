@@ -12,6 +12,8 @@ class UserController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+
+        
         respond User.list(params), model:[userInstanceCount: User.count()]
     }
 
@@ -25,6 +27,14 @@ class UserController {
 
     @Transactional
     def save(User userInstance) {
+        // println userInstance.barcode
+        // println params
+
+        // def roleId = params.role.authority;
+        // def result = UserRole.get(1);
+        def regisRole = Role.findByAuthority(params.role.authority)
+        // println regisRole.id
+
         if (userInstance == null) {
             notFound()
             return
@@ -36,6 +46,8 @@ class UserController {
         }
 
         userInstance.save flush:true
+        // println userInstance.id + "--" + regisRole.id
+        UserRole.create userInstance, regisRole, true
 
         request.withFormat {
             form multipartForm {

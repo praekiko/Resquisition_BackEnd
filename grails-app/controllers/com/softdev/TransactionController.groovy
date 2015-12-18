@@ -5,13 +5,29 @@ package com.softdev
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
-@Transactional(readOnly = true)
+// @Transactional(readOnly = true)
+@Transactional(readOnly = false)
 class TransactionController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
+
+        // println params.isAprrove
+        // def searchResultList = Transaction.createCriteria().list() {
+        //     if(params.isAprrove){
+        //         like("isAprrove", params.isAprrove)
+        //         maxResults(10)
+        //         order("isAprrove", "desc")
+        //     }
+            
+        // }
+
+        // println searchResultList
+
+        // respond searchResultList, model:[transactionInstanceCount: searchResultList.size()]
+
         respond Transaction.list(params), model:[transactionInstanceCount: Transaction.count()]
     }
 
@@ -75,7 +91,7 @@ class TransactionController {
     }
 
     def updateIsApprove(Transaction transactionInstance) {
-
+        println transactionInstance
         if (transactionInstance == null) {
             notFound()
             return
@@ -89,6 +105,7 @@ class TransactionController {
         print transactionInstance.isApprove
         if(transactionInstance.isApprove == false){
             transactionInstance.isApprove = true
+            // forward action: "update"
             transactionInstance.save flush:true
             redirect action: "index"
             return

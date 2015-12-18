@@ -14,18 +14,17 @@ class BootStrap {
         def testUser3 = new User(name: 'นายวรโชติ เสถียรวงศ์นุษา', telNum: '0805214327', barcode: '5610110467', username: 'soon', password: '1234').save()
         def testUser4 = new User(name: 'นางสาววาสิฏฐี ลีละศุภกุล', telNum: '0802114327', barcode: '5610110493', username: 'aun', password: '1234').save()
         def testUser5 = new User(name: 'นางสาววิลาสินี นวลงาม ', telNum: '0800093270', barcode: '5610110503', username: 'prae2', password: '1234').save()
-        def testUser6 = new User(name: 'Joi ', telNum: '0800093270', barcode: '5610110456', password: '1234', username: 'joi').save()
+        
 
         UserRole.create testUser1, adminRole, true
         UserRole.create testUser2, userRole, true
         UserRole.create testUser3, userRole, true
         UserRole.create testUser4, userRole, true
         UserRole.create testUser5, userRole, true
-        UserRole.create testUser6, userRole, true
 
-        assert User.count() == 6
+        assert User.count() == 5
         assert Role.count() == 2
-        assert UserRole.count() == 6
+        assert UserRole.count() == 5
      //    new UserRole(title: 'Admin').save()
         // new UserRole(title: 'Teacher').save()
         // new UserRole(title: 'Maid').save()

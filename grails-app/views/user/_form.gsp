@@ -1,5 +1,15 @@
 <%@ page import="com.softdev.User" %>
 
+<div class="fieldcontain form-group required">
+	<label for="role" class="col-lg-2 control-label">
+		Role
+		<span class="required-indicator">*</span>
+	</label>
+	<div class="col-lg-10">
+	<g:select name="role.authority" from="${com.softdev.Role.list()}" optionKey="authority" required="" value="" class="many-to-one form-control chosen-select"/>
+	</div>
+
+</div>
 
 
 <div class="fieldcontain form-group ${hasErrors(bean: userInstance, field: 'barcode', 'error')} required">

@@ -27,7 +27,9 @@
 				<li><a class="home btn" href="${createLink(uri: '/')}"><span aria-hidden="true">&laquo;</span> <g:message code="default.home.label"/></a></li>
 				<li><g:link class="create btn" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></li>
 			  </ul>
-			</div>
+			</div>		
+
+
 			<table class="table table-striped table-hover">
 			<thead>
 					<tr>
@@ -61,7 +63,10 @@
 						%{-- <td><g:formatBoolean boolean="${transactionInstance.isApprove}" true="อนุญาติแล้ว" false="ยังไม่อนุญาติ"/></td> --}%
 						<td>
 							<g:if test="${transactionInstance.isApprove == false}">
-							     <g:link class="btn btn-default" action="updateIsApprove" resource="${transactionInstance}" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'อนุญาติ?')}');">ยังไม่อนุญาติ</g:link>
+							 	<g:form controller="transaction" action="updateIsApprove" id="${transactionInstance.id}" method="PUT">
+							 	<g:hiddenField name="version" value="${transactionInstance?.version}" />
+							     <g:actionSubmit class="save btn btn-default" action="updateIsApprove"  value="ยังไม่อนุญาติ" onclick="return confirm('${message(code: 'default.button.delete.confirm.message', default: 'อนุญาติ?')}');" />
+							     </g:form>
 							</g:if>
 							<g:if test="${transactionInstance.isApprove == true}">
 							     <button class="btn btn-success" disabled="">อนุญาติแล้ว</button>

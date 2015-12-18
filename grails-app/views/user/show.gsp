@@ -86,24 +86,22 @@
 					
 						<span class="property-value pull-right show-userRole" aria-labelledby="type-label">
 							
+						%{-- ${com.softdev.UserRole.list().findAll{it.user.id == 10}.role}--}%
 						</span>
 
 					
 				</li>
-				<sec:ifAnyGranted roles='ROLE_USER'>
-					 You're a user
-				</sec:ifAnyGranted>
 				<g:javascript>
-					var currentUserBarcode = ${userInstance.barcode};
+					var currentUserId = ${userInstance.id};
 					var userListFromUserRole = '${com.softdev.UserRole.list().user as grails.converters.JSON}';
 					userListFromUserRole = jQuery.parseJSON( userListFromUserRole );
 
 					var roleListFromUserRole = '${com.softdev.UserRole.list().role as grails.converters.JSON}';
 					roleListFromUserRole = jQuery.parseJSON( roleListFromUserRole );
 					for(var i = 0; i < userListFromUserRole.length; i++){
-						// console.log(userListFromUserRole[i].barcode);
-						// console.log(roleListFromUserRole[i].authority);
-						if(currentUserBarcode == userListFromUserRole[i].barcode){
+						console.log(userListFromUserRole[i].id);
+						console.log(roleListFromUserRole[i].authority);
+						if(currentUserId == userListFromUserRole[i].id){
 							var role = roleListFromUserRole[i].authority;
 							// console.log(role);
 							$("span.show-userRole").html(role);

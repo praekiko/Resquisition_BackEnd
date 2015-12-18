@@ -12,7 +12,18 @@ class ItemController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond Item.list(params), model:[itemInstanceCount: Item.count()]
+
+
+        def searchResultList = Item.createCriteria().list() {
+            if(params.itemBarcode){
+                like("barcode", params.itemBarcode)
+                maxResults(10)
+                order("barcode", "desc")
+            }            
+        }   
+        println searchResultList
+        // respond Item.list(params), model:[itemInstanceCount: Item.count()]
+        respond searchResultList, model:[itemInstanceCount: searchResultList.size(), itemList: Item.list()]
     }
 
     def show(Item itemInstance) {
